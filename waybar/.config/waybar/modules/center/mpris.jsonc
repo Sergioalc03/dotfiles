@@ -1,0 +1,11 @@
+{
+	"mpris": {
+		"format": "{play_icon} {dynamic}",
+		"format-pause": "  {dynamic}",
+		"dynamic-len": 40,
+		"player-icon": {
+			"spotify": "",
+			"default": "󰝚"
+		}
+	}
+}

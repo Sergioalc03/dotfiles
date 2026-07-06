@@ -1,0 +1,10 @@
+{
+	"cpu"{
+		"format": "  {usage}%",
+		"interval": 5,
+		"on-click": "kitty -e btop"
+	},
+	
+	""
+
+}
