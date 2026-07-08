@@ -1,0 +1,36 @@
+{
+	"battery": {
+		"format": "{icon} {capacity}%",
+		"format-charging": "󰂄  {capacity}%",
+		"format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+		"states": {
+			"warning": 20,
+			"critical":10
+		},
+		"tooltip-format": "{timeTo}, {power}W"
+	},
+
+	"power-profiles-daemon":{
+		"format": "{icon}",
+		"tooltip-format": "Profile: {profile}",
+		"format-icons": {
+			"default": "",
+			"performance": "",
+			"balanced": "󰗑",
+			"power-saver": "󱤅"
+		}
+	},
+
+	"group/battery": {
+		"orientation": "horizontal",
+		"drawer": {
+			"transition-duration": 300,
+			"children-class": "battery-child",
+			"click-to-reveal": false
+		},
+		"modules": [
+			"battery",
+			"power-profiles-daemon"	
+		 ]
+	}
+}
