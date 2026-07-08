@@ -18,11 +18,10 @@
 		"~/.config/waybar/modules/right/network.jsonc",
 		"~/.config/waybar/modules/right/battery.jsonc",
 		"~/.config/waybar/modules/right/clock.jsonc",
-		"~/.config/waybar/modules/right/notifications.jsonc"
+		"~/.config/waybar/modules/right/notifications.jsonc",
+		"~/.config/waybar/modules/right/power.jsonc"
 	],
 
-
-    // Choose the order of the modules
     "modules-left": [
         "custom/appmenu",
 	"tray"
@@ -38,19 +37,7 @@
         "network",
         "group/battery",
         "clock",
-	"custom/notifications"
-    ],
-
-    "custom/power": {
-        "format" : "⏻ ",
-		"tooltip": false,
-		"menu": "on-click",
-		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-		"menu-actions": {
-			"shutdown": "shutdown",
-			"reboot": "reboot",
-			"suspend": "systemctl suspend",
-			"hibernate": "systemctl hibernate"
-		}
-    }
+	"custom/notifications",
+	"custom/power"
+    ]
 }
