@@ -16,6 +16,6 @@ return {
     menu = "rofi -show drun",
 
     -- Fondo de pantalla (lo pinta swaybg desde autostart.lua).
-    -- Los .jxl de Fedora necesitan el paquete jxl-pixbuf-loader.
+    -- Los .jxl se cargan vía glycin-loaders (viene con Fedora 44).
     wallpaper = "/usr/share/backgrounds/f44/default/f44-01-night.jxl",
 }

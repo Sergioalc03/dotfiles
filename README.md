@@ -22,12 +22,17 @@ Configuración de mi escritorio **Hyprland** (config en Lua, 0.56+) sobre **Fedo
 
 ```sh
 sudo dnf install hyprland waybar SwayNotificationCenter wlogout rofi kitty btop \
-    hyprlock hypridle swaybg jxl-pixbuf-loader mate-polkit \
+    hyprlock hypridle swaybg mate-polkit \
     thunar thunar-volman thunar-archive-plugin gvfs \
     xdg-desktop-portal-hyprland pipewire wireplumber pavucontrol \
     NetworkManager brightnessctl playerctl grim slurp wl-clipboard \
+    swappy cliphist jq libnotify blueman udiskie \
     fontawesome-6-free-fonts fontawesome-6-brands-fonts \
     greetd tuigreet stow git
+
+# OSD de volumen/brillo (no está en los repos oficiales)
+sudo dnf copr enable erikreider/swayosd
+sudo dnf install swayosd
 ```
 
 ### 2. Fuente JetBrainsMono Nerd Font
@@ -53,7 +58,20 @@ Si ya existen archivos en el destino (por ejemplo el `.bashrc` por defecto de Fe
 
 ### 4. Cerrar sesión y volver a entrar
 
-El agente polkit, swaybg, Waybar y swaync se lanzan desde `hyprland/.config/hypr/autostart.lua`.
+El agente polkit, swaybg, Waybar, swaync, hypridle, cliphist, swayosd, blueman y udiskie se lanzan desde `hyprland/.config/hypr/autostart.lua`.
+
+## Atajos principales
+
+| Atajo | Acción |
+|---|---|
+| `SUPER + L` | Bloquear pantalla (hyprlock) |
+| `SUPER + SHIFT + V` | Historial del portapapeles |
+| `Impr` | Captura de un área |
+| `SHIFT + Impr` | Captura de toda la pantalla |
+| `CTRL + Impr` | Captura de la ventana activa |
+| `SUPER + Impr` | Captura de un área y editarla (swappy) |
+
+Las capturas se guardan en `~/Imágenes/Capturas` y se copian al portapapeles. Inactividad (`hypridle.conf`): 2,5 min baja el brillo, 5 min bloquea, 5,5 min apaga la pantalla, 30 min suspende.
 
 ## Personalizar
 

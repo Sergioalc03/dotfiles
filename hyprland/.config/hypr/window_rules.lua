@@ -60,3 +60,20 @@ hl.window_rule({
     size   = "400 300",
     move = "100%-820 20",
 })
+
+hl.window_rule({
+    name  = "blueman-floating",
+    match = { class = "^blueman-manager$" },
+
+    float  = true,
+    size   = "700 500",
+    center = true,
+})
+
+hl.window_rule({
+    name  = "swappy-floating",
+    match = { class = "^swappy$" },
+
+    float  = true,
+    center = true,
+})

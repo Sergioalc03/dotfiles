@@ -23,4 +23,20 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(programs.terminal)
     hl.exec_cmd("waybar")
     hl.exec_cmd("swaync")
+
+    -- 5) Bloqueo por inactividad (config en hypridle.conf)
+    hl.exec_cmd("hypridle")
+
+    -- 6) Historial del portapapeles (texto e imágenes). Requiere: cliphist
+    hl.exec_cmd("wl-paste --type text --watch cliphist store")
+    hl.exec_cmd("wl-paste --type image --watch cliphist store")
+
+    -- 7) OSD de volumen/brillo. Requiere: swayosd (COPR erikreider/swayosd)
+    hl.exec_cmd("swayosd-server")
+
+    -- 8) Icono de bluetooth en la bandeja. Requiere: blueman
+    hl.exec_cmd("blueman-applet")
+
+    -- 9) Montar USB automáticamente + icono en la bandeja. Requiere: udiskie
+    hl.exec_cmd("udiskie --smart-tray")
 end)
