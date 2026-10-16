@@ -29,10 +29,41 @@ hl.bind("SHIFT + Print",           hl.dsp.exec_cmd("~/.config/hypr/scripts/scree
 hl.bind("CTRL + Print",            hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh ventana"))
 hl.bind(mainMod .. " + Print",     hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh editar"))
 
-hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
+-- -- Ventanas -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- SUPER + flechas          -> mover el foco
+-- SUPER + SHIFT + flechas  -> mover la ventana
+-- SUPER + ALT + flechas    -> redimensionar (mantener para repetir)
+local paso = 40 -- píxeles por pulsación al redimensionar
+local direcciones = {
+    left  = { x = -paso, y = 0 },
+    right = { x =  paso, y = 0 },
+    up    = { x = 0, y = -paso },
+    down  = { x = 0, y =  paso },
+}
+for dir, delta in pairs(direcciones) do
+    hl.bind(mainMod .. " + " .. dir,            hl.dsp.focus({ direction = dir }))
+    hl.bind(mainMod .. " + SHIFT + " .. dir,    hl.dsp.window.move({ direction = dir }))
+    hl.bind(mainMod .. " + ALT + " .. dir,      hl.dsp.window.resize({ x = delta.x, y = delta.y, relative = true }), { repeating = true })
+end
+
+hl.bind(mainMod .. " + F",         hl.dsp.window.fullscreen({ action = "toggle", mode = "fullscreen" }))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ action = "toggle", mode = "maximized" })) -- deja ver la barra
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pin())  -- flotante visible en todos los workspaces
+hl.bind(mainMod .. " + SHIFT + C", hl.dsp.window.center())
+
+-- ALT + Tab: siguiente ventana del workspace (y traerla delante si flota)
+hl.bind("ALT + Tab", function()
+    hl.dispatch(hl.dsp.window.cycle_next())
+    hl.dispatch(hl.dsp.window.bring_to_top())
+end)
+-- SUPER + U: saltar a la ventana que pide atención (o a la anterior)
+hl.bind(mainMod .. " + U", hl.dsp.focus({ urgent_or_last = true }))
+
+-- -- Workspaces -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- SUPER + 1..0        -> ir (pulsar el actual vuelve al anterior)
+-- SUPER + SHIFT + 1..0 -> mover la ventana allí
+-- SUPER + CTRL + izq/der -> workspace anterior/siguiente
+-- SUPER + Tab         -> volver al último workspace
 
 for i = 1, 10 do
     local key = i % 10
@@ -40,8 +71,17 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
+hl.bind(mainMod .. " + CTRL + left",  hl.dsp.focus({ workspace = "r-1" }))
+hl.bind(mainMod .. " + CTRL + right", hl.dsp.focus({ workspace = "r+1" }))
+hl.bind(mainMod .. " + Tab",          hl.dsp.focus({ workspace = "previous" }))
+
+-- Scratchpads (workspaces especiales que aparecen encima):
+-- SUPER + S / SUPER + SHIFT + S -> "magic": guarda ventanas a mano
+-- SUPER + º                     -> terminal desplegable (se crea solo,
+--                                  ver window_rules.lua)
 hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(mainMod .. " + masculine", hl.dsp.workspace.toggle_special("terminal"))
 
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))

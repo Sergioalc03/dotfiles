@@ -2,6 +2,14 @@
 -- LAYOUTS                                                --
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+-- Comportamiento de los atajos de workspaces
+hl.config({
+    binds = {
+        workspace_back_and_forth = true, -- SUPER+N en el workspace actual vuelve al anterior
+        allow_workspace_cycles   = true, -- SUPER+Tab alterna entre los dos últimos
+    },
+})
+
 -- https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/
 hl.config({
     dwindle = {
