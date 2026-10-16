@@ -1,0 +1,116 @@
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+ * ROFI - tema Tokyo Night (misma paleta que kitty y Waybar)
+ * -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+* {
+    bg:       #1a1b26;
+    surface:  #24283b;
+    overlay:  #414868;
+    fg:       #c0caf5;
+    fg-dim:   #565f89;
+    blue:     #7aa2f7;
+    magenta:  #bb9af7;
+    red:      #f7768e;
+
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+window {
+    width:            600px;
+    background-color: @bg;
+    border:           2px;
+    border-color:     @blue;
+    border-radius:    12px;
+    padding:          12px;
+}
+
+mainbox {
+    spacing:  10px;
+    children: [ inputbar, message, listview ];
+}
+
+inputbar {
+    background-color: @surface;
+    border-radius:    8px;
+    padding:          8px 12px;
+    spacing:          10px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color: @blue;
+}
+
+entry {
+    placeholder:       "Buscar…";
+    placeholder-color: @fg-dim;
+    cursor:            text;
+}
+
+message {
+    background-color: @surface;
+    border-radius:    8px;
+    padding:          8px 12px;
+}
+
+listview {
+    lines:        8;
+    columns:      1;
+    spacing:      4px;
+    fixed-height: false;
+    scrollbar:    false;
+}
+
+element {
+    padding:       6px 10px;
+    border-radius: 8px;
+    spacing:       10px;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    text-color: @red;
+}
+
+element normal.active,
+element alternate.active {
+    text-color: @magenta;
+}
+
+element selected.normal,
+element selected.active {
+    background-color: @overlay;
+    text-color:       @fg;
+}
+
+element selected.urgent {
+    background-color: @red;
+    text-color:       @surface;
+}
+
+element-icon {
+    size: 1.4em;
+    vertical-align: 0.5;
+}
+
+element-text {
+    text-color:     inherit;
+    vertical-align: 0.5;
+}
+
+mode-switcher {
+    spacing: 6px;
+}
+
+button {
+    background-color: @surface;
+    text-color:       @fg-dim;
+    border-radius:    8px;
+    padding:          6px;
+}
+
+button selected {
+    background-color: @blue;
+    text-color:       #1a1b26;
+}

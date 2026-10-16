@@ -1,7 +1,7 @@
 {
 	"custom/power": {
 		"format": "󰐥",
-		"on-click": "wlogout",
+		"on-click": "wlogout -b 5 -T 260 -B 260",
 		"tooltip-format": "Menú de apagado"
 	}
 }

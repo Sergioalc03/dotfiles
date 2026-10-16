@@ -4,6 +4,8 @@ Configuración de mi escritorio **Hyprland** (config en Lua, 0.56+) sobre **Fedo
 
 ## Contenido
 
+Todo usa la paleta **Tokyo Night** (`#1a1b26` fondo, `#c0caf5` texto, `#7aa2f7` azul, `#bb9af7` violeta…): kitty, Waybar, rofi (`tokyonight.rasi`), swaync, wlogout, swayosd, hyprlock y los bordes de ventana.
+
 | Paquete    | Destino                    | Qué es                                   |
 |------------|----------------------------|------------------------------------------|
 | `hyprland` | `~/.config/hypr`           | Compositor (módulos Lua)                 |
@@ -19,6 +21,7 @@ Configuración de mi escritorio **Hyprland** (config en Lua, 0.56+) sobre **Fedo
 | `gtk`      | `~/.config/gtk-3.0`, `gtk-4.0` | Tema oscuro GTK, iconos y cursor     |
 | `qt`       | `~/.config/qt6ct`          | Tema de las apps Qt6                     |
 | `git`      | `~/.gitconfig`             | Identidad y opciones de Git              |
+| `swayosd`  | `~/.config/swayosd`        | Estilo del OSD de volumen/brillo         |
 
 ## Instalación
 
@@ -61,7 +64,7 @@ fc-cache -f ~/.local/share/fonts
 ```sh
 git clone git@github.com:Sergioalc03/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-stow hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt
+stow hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd
 ```
 
 Si ya existen archivos en el destino (por ejemplo el `.bashrc` por defecto de Fedora), Stow se negará a sobrescribirlos: muévelos o bórralos antes, o usa `stow --adopt` y revisa el `git diff`.

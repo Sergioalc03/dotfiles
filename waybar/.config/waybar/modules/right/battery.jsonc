@@ -26,7 +26,7 @@
 		}
 	},
 
-	"group/battery": {
+	"group/bateria": {
 		"orientation": "horizontal",
 		"drawer": {
 			"transition-duration": 300,

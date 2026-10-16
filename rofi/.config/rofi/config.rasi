@@ -1,5 +1,11 @@
 configuration {
     font: "JetBrainsMono Nerd Font 11";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    display-drun: "Apps";
+    display-run: "Ejecutar";
+    display-window: "Ventanas";
+    drun-display-format: "{name}";
 }
 
-@theme "/usr/share/rofi/themes/gruvbox-dark-soft.rasi"
+@theme "~/.config/rofi/tokyonight.rasi"

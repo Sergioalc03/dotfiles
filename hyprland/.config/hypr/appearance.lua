@@ -11,8 +11,9 @@ hl.config({
         border_size = 2,
 
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
-            inactive_border = "rgba(595959aa)",
+            -- Tokyo Night (misma paleta que kitty, Waybar, rofi, hyprlock)
+            active_border   = { colors = {"rgba(7aa2f7ee)", "rgba(bb9af7ee)"}, angle = 45 },
+            inactive_border = "rgba(414868aa)",
         },
 
         resize_on_border = false,

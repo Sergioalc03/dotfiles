@@ -37,7 +37,7 @@
 	"group/hardware",
         "network",
         "bluetooth",
-        "group/battery",
+        "group/bateria",
         "clock",
 	"custom/notifications",
 	"custom/power"

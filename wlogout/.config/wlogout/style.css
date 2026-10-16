@@ -3,26 +3,37 @@
 	box-shadow: none;
 }
 
+/* Tema Tokyo Night (misma paleta que kitty y Waybar) */
 window {
-	background-color: rgba(12, 12, 12, 0.9);
+	background-color: rgba(26, 27, 38, 0.85);
+	font-family: "JetBrainsMono Nerd Font";
+	font-size: 14px;
 }
 
 button {
-    border-radius: 0;
-    border-color: black;
-	text-decoration-color: #FFFFFF;
-    color: #FFFFFF;
-	background-color: #1E1E1E;
+	border-radius: 16px;
+	border-color: #414868;
+	text-decoration-color: #c0caf5;
+	color: #c0caf5;
+	background-color: #24283b;
 	border-style: solid;
-	border-width: 1px;
+	border-width: 2px;
+	margin: 10px;
 	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 25%;
+	background-size: 72px;
+	background-position: center 38%;
 }
 
 button:focus, button:active, button:hover {
-	background-color: #3700B3;
+	background-color: #414868;
+	border-color: #7aa2f7;
+	color: #7aa2f7;
 	outline-style: none;
+}
+
+#shutdown:hover, #shutdown:focus {
+	border-color: #f7768e;
+	color: #f7768e;
 }
 
 #lock {
