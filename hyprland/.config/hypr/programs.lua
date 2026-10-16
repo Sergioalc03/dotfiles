@@ -15,7 +15,9 @@ return {
     -- menu = "rofi -show drun"
     menu = "rofi -show drun",
 
-    -- Fondo de pantalla (lo pinta swaybg desde autostart.lua).
-    -- Los .jxl se cargan vía glycin-loaders (viene con Fedora 44).
+    -- Fondo de pantalla POR DEFECTO (paquete f44-backgrounds-base).
+    -- Para cambiarlo sin tocar esto: SUPER + W, o clic derecho en una
+    -- imagen en Thunar -> «Poner como fondo» (se recuerda en
+    -- ~/.local/state/fondo). Los .jxl se cargan vía glycin-loaders.
     wallpaper = "/usr/share/backgrounds/f44/default/f44-01-night.jxl",
 }

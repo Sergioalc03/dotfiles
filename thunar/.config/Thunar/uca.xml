@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Acciones del clic derecho de Thunar (Editar > Configurar acciones personalizadas).
+     Ojo: si las cambias desde Thunar, este enlace de Stow se sustituye por un
+     archivo normal; cópialo de vuelta a ~/dotfiles/thunar/.config/Thunar/. -->
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Abrir terminal aquí</name>
+	<submenu></submenu>
+	<unique-id>1792168188337932-1</unique-id>
+	<command>kitty --directory %f</command>
+	<description>Abre kitty en esta carpeta</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>preferences-desktop-wallpaper</icon>
+	<name>Poner como fondo</name>
+	<submenu></submenu>
+	<unique-id>1792168188337932-2</unique-id>
+	<command>~/.config/hypr/scripts/wallpaper.sh %f</command>
+	<description>Usa esta imagen como fondo de pantalla</description>
+	<range>1-1</range>
+	<patterns>*.jpg;*.jpeg;*.png;*.webp;*.jxl;*.JPG;*.JPEG;*.PNG</patterns>
+	<image-files/>
+</action>
+</actions>

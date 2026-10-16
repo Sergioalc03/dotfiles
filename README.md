@@ -22,6 +22,9 @@ Todo usa la paleta **Tokyo Night** (`#1a1b26` fondo, `#c0caf5` texto, `#7aa2f7` 
 | `qt`       | `~/.config/qt6ct`          | Tema de las apps Qt6                     |
 | `git`      | `~/.gitconfig`             | Identidad y opciones de Git              |
 | `swayosd`  | `~/.config/swayosd`        | Estilo del OSD de volumen/brillo         |
+| `thunar`   | `~/.config/Thunar/uca.xml` | Acciones del clic derecho de Thunar      |
+
+`plantillas/` no es un paquete de Stow: `install.sh` **copia** su contenido a `~/Plantillas` (Thunar → clic derecho → *Crear documento*). Se copia para que un documento nuevo nunca pueda editar el archivo del repo.
 
 ## Instalación
 
@@ -50,7 +53,7 @@ Al terminar, cierra sesión y vuelve a entrar. El agente polkit, swaybg, Waybar,
 
 ### Manual
 
-Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd`. Si ya existen archivos en el destino, Stow se negará a sobrescribirlos: muévelos antes, o usa `stow --adopt` y revisa el `git diff`.
+Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar`. Si ya existen archivos en el destino, Stow se negará a sobrescribirlos: muévelos antes, o usa `stow --adopt` y revisa el `git diff`.
 
 ## Atajos principales
 
@@ -58,6 +61,7 @@ Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash
 |---|---|
 | `SUPER + L` | Bloquear pantalla (hyprlock) |
 | `SUPER + SHIFT + V` | Historial del portapapeles |
+| `SUPER + W` | Elegir fondo de pantalla |
 | `Impr` | Captura de un área |
 | `SHIFT + Impr` | Captura de toda la pantalla |
 | `CTRL + Impr` | Captura de la ventana activa |
@@ -84,5 +88,7 @@ Reglas de ventana (`window_rules.lua`): diálogos de abrir/guardar y herramienta
 
 ## Personalizar
 
-- Programas por defecto (terminal, gestor de archivos, lanzador) y ruta del **fondo de pantalla**: `hyprland/.config/hypr/programs.lua`.
+- Programas por defecto (terminal, gestor de archivos, lanzador) y **fondo por defecto**: `hyprland/.config/hypr/programs.lua`.
+- **Fondo de pantalla**: `SUPER + W` muestra miniaturas de las imágenes de `~/Imágenes/Fondos` y `/usr/share/backgrounds`. También vale clic derecho en una imagen en Thunar → *Poner como fondo*. La elección se recuerda en `~/.local/state/fondo`. Si la imagen ya no existe, se pinta el color de fondo de Tokyo Night.
+- **Clic derecho en Thunar**: *Crear carpeta*, *Crear documento* (archivo vacío o una plantilla de `~/Plantillas`), *Abrir terminal aquí* (kitty). Para añadir plantillas, deja cualquier archivo en `~/Plantillas`.
 - Atajos de teclado: `hyprland/.config/hypr/keybindings.lua`.

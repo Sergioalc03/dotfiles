@@ -18,7 +18,7 @@ set -euo pipefail
 DOTFILES="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
 BACKUP="$HOME/.dotfiles-respaldo/$(date +%Y%m%d-%H%M%S)"
 
-STOW_PKGS=(hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd)
+STOW_PKGS=(hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar)
 
 COPRS=(
     ashbuk/Hyprland-Fedora   # hyprland 0.56 (config Lua), hyprlock, hypridle, portal
@@ -40,7 +40,8 @@ PACKAGES=(
     grim slurp swappy wl-clipboard cliphist
     # Utilidades usadas por los scripts
     jq libnotify curl
-    # Tema
+    # Tema (los fondos de Fedora: programs.lua usa uno por defecto)
+    "f$(rpm -E %fedora)-backgrounds-base"
     adw-gtk3-theme papirus-icon-theme breeze-cursor-theme qt6ct
     fontawesome-6-free-fonts fontawesome-6-brands-fonts
     # Terminal
@@ -220,7 +221,7 @@ XDG_VIDEOS_DIR="$HOME/Vídeos"
 XDG_TEMPLATES_DIR="$HOME/Plantillas"
 XDG_PUBLICSHARE_DIR="$HOME/Público"
 EOF
-for d in Escritorio Descargas Documentos Música Imágenes/Capturas Vídeos Plantillas Público; do
+for d in Escritorio Descargas Documentos Música Imágenes/Capturas Imágenes/Fondos Vídeos Plantillas Público; do
     [[ -d "$HOME/$d" ]] || run mkdir -p "$HOME/$d"
 done
 # Las carpetas en inglés solo se quitan si están vacías.
@@ -228,6 +229,17 @@ for d in Desktop Downloads Documents Music Pictures Videos Templates Public; do
     if [[ -d "$HOME/$d" ]]; then
         if rmdir "$HOME/$d" 2>/dev/null; then ok "quitada ~/$d (vacía)"
         else aviso "~/$d no está vacía; muévela tú a su carpeta en español"; fi
+    fi
+done
+
+paso "Plantillas del clic derecho (Thunar > Crear documento)"
+# Se copian en vez de enlazarse: así un documento creado desde una
+# plantilla nunca puede acabar editando el archivo del repo.
+for f in "$DOTFILES"/plantillas/Plantillas/*; do
+    if [[ -e "$HOME/Plantillas/$(basename "$f")" ]]; then
+        ok "$(basename "$f") ya existe"
+    else
+        run cp -p "$f" "$HOME/Plantillas/"
     fi
 done
 

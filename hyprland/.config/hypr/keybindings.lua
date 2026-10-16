@@ -23,6 +23,9 @@ hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
 -- Historial del portapapeles (scripts/clipboard.sh)
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("~/.config/hypr/scripts/clipboard.sh"))
 
+-- Elegir fondo de pantalla (scripts/wallpaper.sh)
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper.sh"))
+
 -- Capturas de pantalla (scripts/screenshot.sh) -> ~/Imágenes/Capturas + portapapeles
 hl.bind("Print",                   hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh area"))
 hl.bind("SHIFT + Print",           hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh pantalla"))
