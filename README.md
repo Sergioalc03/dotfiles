@@ -34,7 +34,7 @@ sudo dnf install hyprland waybar SwayNotificationCenter wlogout rofi kitty btop 
     fontawesome-6-free-fonts fontawesome-6-brands-fonts \
     greetd tuigreet stow git \
     adw-gtk3-theme papirus-icon-theme breeze-cursor-theme qt6ct \
-    tmux fzf zoxide eza bat
+    tmux fzf zoxide eza bat power-profiles-daemon
 
 # Prompt (no está en los repos oficiales)
 sudo dnf copr enable atim/starship
@@ -68,7 +68,7 @@ Si ya existen archivos en el destino (por ejemplo el `.bashrc` por defecto de Fe
 
 ### 4. Cerrar sesión y volver a entrar
 
-El agente polkit, swaybg, Waybar, swaync, hypridle, cliphist, swayosd, blueman y udiskie se lanzan desde `hyprland/.config/hypr/autostart.lua`.
+El agente polkit, swaybg, Waybar, swaync, hypridle, cliphist, swayosd, blueman, udiskie y `scripts/battery.sh` se lanzan desde `hyprland/.config/hypr/autostart.lua`.
 
 ## Atajos principales
 
@@ -81,7 +81,9 @@ El agente polkit, swaybg, Waybar, swaync, hypridle, cliphist, swayosd, blueman y
 | `CTRL + Impr` | Captura de la ventana activa |
 | `SUPER + Impr` | Captura de un área y editarla (swappy) |
 
-Las capturas se guardan en `~/Imágenes/Capturas` y se copian al portapapeles. Inactividad (`hypridle.conf`): 2,5 min baja el brillo, 5 min bloquea, 5,5 min apaga la pantalla, 30 min suspende.
+Las capturas se guardan en `~/Imágenes/Capturas` y se copian al portapapeles. Inactividad (`hypridle.conf`): 2,5 min baja el brillo, 5 min bloquea, 5,5 min apaga la pantalla, 15 min suspende con batería / 30 min enchufado.
+
+Batería (`scripts/battery.sh`): al desenchufar pasa al perfil `power-saver` y al enchufar a `balanced`; avisa al 20 % y al 10 %, y al 5 % suspende tras 60 s. Clic en el icono de perfil de Waybar (despliega al pasar por la batería) para cambiarlo a mano.
 
 ## Personalizar
 

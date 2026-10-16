@@ -42,4 +42,8 @@ hl.on("hyprland.start", function()
 
     -- 9) Montar USB automáticamente + icono en la bandeja. Requiere: udiskie
     hl.exec_cmd("udiskie --smart-tray")
+
+    -- 10) Avisos de batería baja + perfil de energía según cargador
+    --     (scripts/battery.sh). Requiere: power-profiles-daemon
+    hl.exec_cmd("~/.config/hypr/scripts/battery.sh")
 end)

@@ -134,6 +134,11 @@ button:hover {
     }
 }
 
+#battery.warning:not(.charging) {
+    background-color: #f39c12;
+    color: #000000;
+}
+
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
     background-color: #f53c3c;

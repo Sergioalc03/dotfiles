@@ -2,17 +2,22 @@
 	"battery": {
 		"format": "{icon} {capacity}%",
 		"format-charging": "󰂄  {capacity}%",
+		"format-plugged": "󰚥  {capacity}%",
 		"format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
 		"states": {
 			"warning": 20,
 			"critical":10
 		},
-		"tooltip-format": "{timeTo}, {power}W"
+		"format-time": "{H} h {m} min",
+		"tooltip-format-discharging": "Quedan {time} · {power:.1f} W",
+		"tooltip-format-charging": "Carga completa en {time} · {power:.1f} W",
+		"tooltip-format-plugged": "Enchufado",
+		"tooltip-format-full": "Batería llena"
 	},
 
 	"power-profiles-daemon":{
 		"format": "{icon}",
-		"tooltip-format": "Profile: {profile}",
+		"tooltip-format": "Perfil: {profile}\nClic: cambiar perfil",
 		"format-icons": {
 			"default": "",
 			"performance": "",
