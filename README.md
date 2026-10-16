@@ -25,53 +25,32 @@ Todo usa la paleta **Tokyo Night** (`#1a1b26` fondo, `#c0caf5` texto, `#7aa2f7` 
 
 ## Instalación
 
-### 1. Paquetes (Fedora)
+### Rápida: `install.sh`
 
 ```sh
-sudo dnf install hyprland waybar SwayNotificationCenter wlogout rofi kitty btop \
-    hyprlock hypridle swaybg mate-polkit \
-    thunar thunar-volman thunar-archive-plugin gvfs \
-    xdg-desktop-portal-hyprland pipewire wireplumber pavucontrol \
-    NetworkManager brightnessctl playerctl grim slurp wl-clipboard \
-    swappy cliphist jq libnotify blueman udiskie \
-    fontawesome-6-free-fonts fontawesome-6-brands-fonts \
-    greetd tuigreet stow git \
-    adw-gtk3-theme papirus-icon-theme breeze-cursor-theme qt6ct \
-    tmux fzf zoxide eza bat power-profiles-daemon
-
-# Prompt (no está en los repos oficiales)
-sudo dnf copr enable atim/starship
-sudo dnf install starship
-
-# OSD de volumen/brillo (no está en los repos oficiales)
-sudo dnf copr enable erikreider/swayosd
-sudo dnf install swayosd
-```
-
-### 2. Fuente JetBrainsMono Nerd Font
-
-No está en los repos de Fedora; se instala en el usuario:
-
-```sh
-curl -fsSL -o /tmp/JBM.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.tar.xz
-mkdir -p ~/.local/share/fonts/JetBrainsMonoNerd
-tar -xJf /tmp/JBM.tar.xz -C ~/.local/share/fonts/JetBrainsMonoNerd --wildcards '*.ttf'
-fc-cache -f ~/.local/share/fonts
-```
-
-### 3. Enlazar las configs
-
-```sh
-git clone git@github.com:Sergioalc03/dotfiles.git ~/dotfiles
+sudo dnf install git stow
+git clone https://github.com/Sergioalc03/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-stow hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd
+./install.sh            # pregunta antes de tocar greetd y la batería
 ```
 
-Si ya existen archivos en el destino (por ejemplo el `.bashrc` por defecto de Fedora), Stow se negará a sobrescribirlos: muévelos o bórralos antes, o usa `stow --adopt` y revisa el `git diff`.
+Opciones: `-y` (no preguntar), `--sin-sistema` (sin sudo: solo fuente, stow y ajustes de usuario), `-n`/`--simular` (muestra lo que haría). Se puede repetir sin problema: lo que ya está hecho se salta.
 
-### 4. Cerrar sesión y volver a entrar
+Qué hace:
 
-El agente polkit, swaybg, Waybar, swaync, hypridle, cliphist, swayosd, blueman, udiskie y `scripts/battery.sh` se lanzan desde `hyprland/.config/hypr/autostart.lua`.
+1. Activa los COPR `ashbuk/Hyprland-Fedora` (Hyprland 0.56 con config Lua, hyprlock, hypridle, portal), `atim/starship` y `erikreider/swayosd`, e instala con dnf los paquetes que falten (lista en `PACKAGES` dentro del script).
+2. Habilita `bluetooth` y `power-profiles-daemon`.
+3. Instala **JetBrainsMono Nerd Font** en `~/.local/share/fonts` (no está en los repos de Fedora).
+4. Enlaza todos los paquetes con Stow. Los archivos reales que estorben (como el `.bashrc` que trae Fedora) se mueven antes a `~/.dotfiles-respaldo/<fecha>/`.
+5. Carpetas de usuario en español (`~/.config/user-dirs.dirs`, incluida `~/Imágenes/Capturas`). Quita las carpetas en inglés solo si están vacías. Pone Thunar como gestor de archivos por defecto.
+6. *(Pregunta)* greetd + tuigreet como pantalla de inicio de sesión (`/etc/greetd/config.toml`, sustituye a GDM/SDDM).
+7. *(Pregunta, si el portátil lo admite)* Modo conservación de la batería: regla udev `/etc/udev/rules.d/90-bateria.rules` con `charge_types=Long_Life`.
+
+Al terminar, cierra sesión y vuelve a entrar. El agente polkit, swaybg, Waybar, swaync, hypridle, cliphist, swayosd, blueman, udiskie y `scripts/battery.sh` se lanzan desde `hyprland/.config/hypr/autostart.lua`.
+
+### Manual
+
+Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd`. Si ya existen archivos en el destino, Stow se negará a sobrescribirlos: muévelos antes, o usa `stow --adopt` y revisa el `git diff`.
 
 ## Atajos principales
 
