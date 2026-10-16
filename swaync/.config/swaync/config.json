@@ -30,28 +30,8 @@
   "transition-time": 200,
   "hide-on-clear": false,
   "hide-on-action": true,
-  "text-empty": "No Notifications",
+  "text-empty": "Sin notificaciones",
   "script-fail-notify": true,
-  "scripts": {
-    "example-script": {
-      "app-name": "example.app.id",
-      "exec": "echo 'Do something...'",
-      "urgency": "Normal"
-    },
-    "example-action-script": {
-      "app-name": "example.app.id",
-      "exec": "echo 'Do something actionable!'",
-      "urgency": "Normal",
-      "run-on": "action"
-    }
-  },
-  "notification-visibility": {
-    "example-name": {
-      "state": "muted",
-      "urgency": "Normal",
-      "app-name": "example.app.id"
-    }
-  },
   "widgets": [
     "inhibitors",
     "title",
@@ -63,17 +43,17 @@
       "vexpand": true
     },
     "inhibitors": {
-      "text": "Inhibitors",
-      "button-text": "Clear All",
+      "text": "Inhibidores",
+      "button-text": "Limpiar",
       "clear-all-button": true
     },
     "title": {
-      "text": "Notifications",
+      "text": "Notificaciones",
       "clear-all-button": true,
-      "button-text": "Clear All"
+      "button-text": "Limpiar todo"
     },
     "dnd": {
-      "text": "Do Not Disturb"
+      "text": "No molestar"
     },
     "label": {
       "max-lines": 5,

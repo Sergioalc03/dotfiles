@@ -1,0 +1,57 @@
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# STARSHIP - prompt de la terminal
+# https://starship.rs/config/
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# Colores en sintonía con kitty (Tokyo Night).
+
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+format = """
+$username$hostname$directory$git_branch$git_status$python$nodejs$rust$cmd_duration
+$character"""
+
+[username]
+show_always = false          # solo por SSH o como root
+format = '[$user]($style)@'
+
+[hostname]
+ssh_only = true
+format = '[$hostname]($style) '
+
+[directory]
+style = 'bold #7aa2f7'
+truncation_length = 3
+truncate_to_repo = true
+read_only = ' 󰌾'
+
+[directory.substitutions]
+'Descargas' = '󰉍 '
+'Imágenes' = '󰉏 '
+'dotfiles' = ' '
+
+[git_branch]
+symbol = ' '
+style = 'bold #bb9af7'
+
+[git_status]
+style = '#e0af68'
+
+[cmd_duration]
+min_time = 2000               # mostrar si tarda más de 2 s
+format = '[ $duration]($style) '
+style = '#545c7e'
+
+[character]
+success_symbol = '[❯](bold #9ece6a)'
+error_symbol   = '[❯](bold #f7768e)'
+
+[python]
+symbol = ' '
+
+[nodejs]
+symbol = ' '
+
+[rust]
+symbol = ' '

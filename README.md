@@ -13,7 +13,11 @@ Configuración de mi escritorio **Hyprland** (config en Lua, 0.56+) sobre **Fedo
 | `rofi`     | `~/.config/rofi`           | Lanzador de aplicaciones                 |
 | `kitty`    | `~/.config/kitty`          | Terminal                                 |
 | `btop`     | `~/.config/btop`           | Monitor del sistema                      |
-| `bash`     | `~/.bashrc`, `~/.bash_profile` | Shell                                |
+| `bash`     | `~/.bashrc`, `~/.bash_profile`, `~/.bashrc.d/` | Shell, alias, fzf/zoxide/starship |
+| `starship` | `~/.config/starship.toml`  | Prompt de la terminal                    |
+| `tmux`     | `~/.config/tmux`           | Multiplexor (prefijo `CTRL + a`)         |
+| `gtk`      | `~/.config/gtk-3.0`, `gtk-4.0` | Tema oscuro GTK, iconos y cursor     |
+| `qt`       | `~/.config/qt6ct`          | Tema de las apps Qt6                     |
 | `git`      | `~/.gitconfig`             | Identidad y opciones de Git              |
 
 ## Instalación
@@ -28,7 +32,13 @@ sudo dnf install hyprland waybar SwayNotificationCenter wlogout rofi kitty btop 
     NetworkManager brightnessctl playerctl grim slurp wl-clipboard \
     swappy cliphist jq libnotify blueman udiskie \
     fontawesome-6-free-fonts fontawesome-6-brands-fonts \
-    greetd tuigreet stow git
+    greetd tuigreet stow git \
+    adw-gtk3-theme papirus-icon-theme breeze-cursor-theme qt6ct \
+    tmux fzf zoxide eza bat
+
+# Prompt (no está en los repos oficiales)
+sudo dnf copr enable atim/starship
+sudo dnf install starship
 
 # OSD de volumen/brillo (no está en los repos oficiales)
 sudo dnf copr enable erikreider/swayosd
@@ -51,7 +61,7 @@ fc-cache -f ~/.local/share/fonts
 ```sh
 git clone git@github.com:Sergioalc03/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-stow hyprland waybar swaync wlogout rofi kitty btop bash git
+stow hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt
 ```
 
 Si ya existen archivos en el destino (por ejemplo el `.bashrc` por defecto de Fedora), Stow se negará a sobrescribirlos: muévelos o bórralos antes, o usa `stow --adopt` y revisa el `git diff`.

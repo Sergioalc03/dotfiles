@@ -15,7 +15,7 @@ hl.config({
         sensitivity = 0,
 
         touchpad = {
-            natural_scroll = false,
+            natural_scroll = true, -- dos dedos arriba = bajar página
         },
     },
 })
@@ -26,9 +26,6 @@ hl.gesture({
     action    = "workspace",
 })
 
+-- Config por dispositivo (ratón concreto, etc.):
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/
--- Esto es un ejemplo, ahora mismo no hace nada.
-hl.device({
-    name        = "epic-mouse-v1",
-    sensitivity = -0.5,
-})
+-- Nombres disponibles con: hyprctl devices

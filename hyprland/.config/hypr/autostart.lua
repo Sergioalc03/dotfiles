@@ -19,6 +19,9 @@ hl.on("hyprland.start", function()
     -- 3) Fondo de pantalla. Requiere: swaybg
     hl.exec_cmd("swaybg -m fill -i " .. programs.wallpaper)
 
+    -- 3b) Tema oscuro para GTK4/libadwaita (scripts/theme.sh)
+    hl.exec_cmd("~/.config/hypr/scripts/theme.sh")
+
     -- 4) Resto de la sesión
     hl.exec_cmd(programs.terminal)
     hl.exec_cmd("waybar")
