@@ -1,0 +1,8 @@
+# Archivos temporales y de editores
+*~
+*.swp
+*.bak
+.directory
+
+# btop guarda aquí su log
+btop/.config/btop/btop.log
