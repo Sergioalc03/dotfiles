@@ -2,21 +2,21 @@
 	"cpu": {
 		"format": "  {usage}%",
 		"interval": 5,
-		"on-click": "kitty -e btop"
+		"on-click": "kitty --class btop-float -e btop"
 	},
 	
 	"memory": {
 		"format": "󰍛  {percentage}%",
 		"interval": 5,
 		"tooltip-format": "Used: {used}GiB / Total: {total}GiB",
-		"on-click": "kitty -e btop"
+		"on-click": "kitty --class btop-float -e btop"
 	},
 
 	"temperature": {
 		"thermal-zone": 0,
 		"format": "{icon} {temperatureC}ºC",
 		"format-icons": ["", "", ""],
-		"critical-thershold": 80,
+		"critical-threshold": 80,
 		"tooltip": true
 	},
 
