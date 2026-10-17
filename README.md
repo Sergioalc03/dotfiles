@@ -25,8 +25,11 @@ Los colores **salen del fondo de pantalla** con [wallust](https://codeberg.org/e
 | `thunar`   | `~/.config/Thunar/uca.xml` | Acciones del clic derecho de Thunar      |
 | `wallust`  | `~/.config/wallust`        | Paleta desde el fondo y sus plantillas   |
 | `systemd`  | `~/.config/systemd/user`   | `hyprland-session.target` (activa la sesión gráfica para los portales) |
+| `yazi`     | `~/.config/yazi`           | Gestor de archivos en la terminal        |
+| `mpv`      | `~/.config/mpv`            | Reproductor de vídeo (interfaz uosc)     |
+| `qutebrowser` | `~/.config/qutebrowser` | Navegador manejado con el teclado        |
 
-`systemd` se enlaza con `stow --no-folding` para que `~/.config/systemd` siga siendo una carpeta real (si no, `systemctl --user enable` escribiría dentro del repo).
+`systemd`, `mpv` y `qutebrowser` se enlazan con `stow --no-folding` para que su carpeta en `~/.config` siga siendo real: si no, `systemctl --user enable`, uosc, qutebrowser (`autoconfig.yml`, marcadores) y wallust escribirían dentro del repo.
 
 `plantillas/` no es un paquete de Stow: `install.sh` **copia** su contenido a `~/Plantillas` (Thunar → clic derecho → *Crear documento*). Se copia para que un documento nuevo nunca pueda editar el archivo del repo.
 
@@ -45,9 +48,9 @@ Opciones: `-y` (no preguntar), `--sin-sistema` (sin sudo: solo fuente, stow y aj
 
 Qué hace:
 
-1. Activa los COPR `ashbuk/Hyprland-Fedora` (Hyprland 0.56 con config Lua, hyprlock, hypridle, portal), `atim/starship`, `erikreider/swayosd` y `scottames/awww`, e instala con dnf los paquetes que falten (lista en `PACKAGES` dentro del script).
+1. Activa los COPR `ashbuk/Hyprland-Fedora` (Hyprland 0.56 con config Lua, hyprlock, hypridle, portal), `atim/starship`, `erikreider/swayosd` y `scottames/awww`, e instala con dnf los paquetes que falten (lista en `PACKAGES` dentro del script). Cambia `ffmpeg-free` por el **ffmpeg completo** de RPM Fusion (activándolo si falta; sin él mpv no abre vídeos H.264/H.265) e instala los Flatpak de `FLATPAKS` (Spotify).
 2. Habilita `bluetooth` y `power-profiles-daemon`.
-3. Instala **JetBrainsMono Nerd Font** en `~/.local/share/fonts` y **wallust** (binario oficial) en `~/.local/bin`; ninguno está en los repos de Fedora.
+3. Instala **JetBrainsMono Nerd Font** en `~/.local/share/fonts`, **wallust** y **yazi** (binarios oficiales) en `~/.local/bin` y **uosc** en `~/.config/mpv`; ninguno está en los repos de Fedora.
 4. Enlaza todos los paquetes con Stow. Los archivos reales que estorben (como el `.bashrc` que trae Fedora) se mueven antes a `~/.dotfiles-respaldo/<fecha>/`. Después genera la paleta inicial (Tokyo Night).
 5. Carpetas de usuario en español (`~/.config/user-dirs.dirs`, incluida `~/Imágenes/Capturas`). Quita las carpetas en inglés solo si están vacías. Pone Thunar como gestor de archivos por defecto.
 6. *(Pregunta)* greetd + tuigreet como pantalla de inicio de sesión (`/etc/greetd/config.toml`, sustituye a GDM/SDDM).
@@ -57,7 +60,7 @@ Al terminar, cierra sesión y vuelve a entrar. El agente polkit, el fondo (awww)
 
 ### Manual
 
-Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar wallust` y `stow -t ~ --no-folding systemd`, y luego `wallust theme Tokyo-Night -s` para crear los archivos de colores (sin ellos Waybar sale sin estilo). Si ya existen archivos en el destino, Stow se negará a sobrescribirlos: muévelos antes, o usa `stow --adopt` y revisa el `git diff`.
+Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar wallust yazi` y `stow -t ~ --no-folding systemd mpv qutebrowser`, y luego `wallust theme Tokyo-Night -s` para crear los archivos de colores (sin ellos Waybar sale sin estilo). Si ya existen archivos en el destino, Stow se negará a sobrescribirlos: muévelos antes, o usa `stow --adopt` y revisa el `git diff`.
 
 ## Atajos principales
 
@@ -66,6 +69,7 @@ Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash
 | `SUPER + L` | Bloquear pantalla (hyprlock) |
 | `SUPER + SHIFT + V` | Historial del portapapeles |
 | `SUPER + W` | Elegir fondo de pantalla |
+| `SUPER + E` / `SUPER + SHIFT + E` | Thunar / yazi (en la terminal) |
 | `Impr` | Captura de un área |
 | `SHIFT + Impr` | Captura de toda la pantalla |
 | `CTRL + Impr` | Captura de la ventana activa |
@@ -102,6 +106,10 @@ Reglas de ventana (`window_rules.lua`): diálogos de abrir/guardar y herramienta
 - **Fondo de pantalla**: `SUPER + W` muestra miniaturas de las imágenes de `~/Imágenes/Fondos` y `/usr/share/backgrounds`. También vale clic derecho en una imagen en Thunar → *Poner como fondo*. La elección se recuerda en `~/.local/state/fondo`. Si la imagen ya no existe, se pinta el color de fondo de Tokyo Night. Cada cambio regenera los colores (ver abajo). El fondo lo pinta **awww** con una transición en barrido (`TRANSICION` al principio de `scripts/wallpaper.sh`; tipos en `awww img --help`); al iniciar sesión aparece sin transición. Los `.jxl` se convierten a PNG en `~/.cache/fondo` porque ni awww ni wallust los leen.
 - **Iconos en el escritorio**: `scripts/desktop.sh` lanza `pcmanfm-qt --desktop`, que muestra `~/Escritorio`, la carpeta personal y la papelera (solo se ven en un espacio de trabajo sin ventanas). Clic derecho para crear carpetas o pegar; las carpetas se abren con Thunar. pcmanfm-qt pinta su propio fondo encima de awww, así que `wallpaper.sh` le pasa la misma imagen y **la transición en barrido no se ve**; para recuperarla, quita la línea de `desktop.sh` en `autostart.lua`. Sus ajustes (clic derecho → *Preferencias del escritorio*) se guardan en `~/.config/pcmanfm-qt/hyprland`, fuera del repo; `desktop.sh` crea los de partida la primera vez (margen superior para Waybar, abrir con Thunar).
 - **Clic derecho en Thunar**: *Crear carpeta*, *Crear documento* (archivo vacío o una plantilla de `~/Plantillas`), *Abrir terminal aquí* (kitty). Para añadir plantillas, deja cualquier archivo en `~/Plantillas`.
+- **yazi**: `SUPER + SHIFT + E` o `y` en la terminal (al salir con `q` te deja en la carpeta donde estabas; `Q` sale sin cambiar). `F1` muestra la ayuda. Vídeo y audio se abren con mpv. Usa los colores de kitty.
+- **mpv** con **uosc**: clic derecho = menú (abrir, subtítulos, pistas de audio, velocidad…), `o` abrir archivo, `S` subtítulos, `A` audio. Recuerda por dónde ibas. Ajustes en `mpv.conf`; los de uosc (y sus colores) en la plantilla `wallust/templates/uosc.conf`. Con `yt-dlp` abre también enlaces de YouTube: `mpv <url>`.
+- **qutebrowser**: `o` abrir URL (`o yt gatos` busca en YouTube; buscadores en `config.py`), `f` seguir enlace, `J/K` pestañas, `,m` / `,M` ver el vídeo de la página / de un enlace en mpv. Lo cambiado con `:set` no se guarda: todo va en `config.py`.
+- **Spotify**: el cliente oficial (Flatpak), que funciona con cuenta gratis o Premium. El bloque de música de Waybar y las teclas multimedia lo controlan.
 - Atajos de teclado: `hyprland/.config/hypr/keybindings.lua`.
 - Aspecto de las ventanas (huecos 10/20, borde de 4 px, sombra amplia, desenfoque, puntero que se oculta a los 3 s): `appearance.lua`. Animaciones: `animations.lua`, con dos estilos: `ESTILO = "ja"` (el de Nebulix, deslizando con rebote) o `"suave"` (el original).
 
@@ -119,11 +127,13 @@ Reglas de ventana (`window_rules.lua`): diálogos de abrir/guardar y herramienta
 | `kitty.conf` | `~/.config/kitty/colores.conf` | `kitty.conf` |
 | `btop.theme` | `~/.config/btop/themes/wallust.theme` | `btop.conf` |
 | `tmux.conf` | `~/.config/tmux/colores.conf` | `tmux.conf` (barra de estado y bordes) |
+| `uosc.conf` | `~/.config/mpv/script-opts/uosc.conf` | uosc (interfaz de mpv; también sus otros ajustes) |
+| `qutebrowser.py` | `~/.config/qutebrowser/colores.py` | `qutebrowser/config.py` |
 
-Los archivos generados están en `.gitignore`: para cambiar un color se edita la **plantilla**, no el `colores.*`. Hyprland, Waybar, swaync, kitty, tmux y swayosd se recargan solos; rofi, wlogout, hyprlock y btop leen la paleta al abrirse.
+Los archivos generados están en `.gitignore`: para cambiar un color se edita la **plantilla**, no el `colores.*`. Hyprland, Waybar, swaync, kitty, tmux, swayosd y qutebrowser se recargan solos; rofi, wlogout, hyprlock, btop y mpv leen la paleta al abrirse.
 
 - Nombres en CSS/rofi: `@bg`, `@surface`, `@overlay`, `@fg`, `@fg-dim`, `@acento` (= `color4`), `@acento2` (= `color5`), `@c1`…`@c6`. `@red` y `@orange` son fijos para que los avisos (batería crítica, apagar) sigan siendo rojos.
-- **starship** no tiene plantilla: usa los nombres de color de la terminal (`blue`, `purple`, `green`…), que son los de kitty, así que cambia a la vez que ella. El `❯` de error es rojo fijo.
+- **starship** y **yazi** no tienen plantilla: usan los nombres de color de la terminal (`blue`, `purple`, `green`…), que son los de kitty, así que cambian a la vez que ella. El `❯` de error de starship es rojo fijo.
 - Volver a Tokyo Night sin cambiar el fondo: `wallust theme Tokyo-Night -s` (o cualquier otro de `wallust theme list`).
 - Otra paleta para la misma imagen: `palette` en `wallust.toml` (p. ej. `harddark`, `softdark`) o a mano `wallust run -p harddark <imagen>`.
 

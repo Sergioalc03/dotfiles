@@ -3,9 +3,10 @@
 # INSTALADOR DE LOS DOTFILES (Fedora 44 + Hyprland)
 #
 # Deja el escritorio listo en una instalación limpia:
-#   1. COPRs y paquetes de dnf
+#   1. COPRs y paquetes de dnf, ffmpeg completo (RPM Fusion), Spotify
 #   2. Servicios (bluetooth, perfiles de energía)
-#   3. Fuente JetBrainsMono Nerd Font y wallust (colores del fondo)
+#   3. Fuente JetBrainsMono Nerd Font, wallust (colores del fondo),
+#      yazi y uosc (interfaz de mpv)
 #   4. Enlaces con GNU Stow (respalda lo que estorbe) y paleta inicial
 #   5. Ajustes de usuario: carpetas en español, Thunar por defecto
 #   6. greetd + tuigreet como pantalla de inicio de sesión (pregunta)
@@ -18,7 +19,11 @@ set -euo pipefail
 DOTFILES="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
 BACKUP="$HOME/.dotfiles-respaldo/$(date +%Y%m%d-%H%M%S)"
 
-STOW_PKGS=(hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar wallust)
+STOW_PKGS=(hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar wallust yazi)
+# Sin plegar: su carpeta en ~/.config debe ser real porque otros programas
+# escriben dentro (systemctl --user enable; uosc y wallust en la de mpv;
+# qutebrowser y wallust en la de qutebrowser)
+STOW_NOFOLD=(systemd mpv qutebrowser)
 
 COPRS=(
     ashbuk/Hyprland-Fedora   # hyprland 0.56 (config Lua), hyprlock, hypridle, portal
@@ -36,6 +41,9 @@ PACKAGES=(
     kitty btop Thunar thunar-volman thunar-archive-plugin gvfs pavucontrol
     # Iconos en el escritorio (scripts/desktop.sh)
     pcmanfm-qt
+    # Vídeo (con uosc, ver más abajo; yt-dlp para abrir YouTube) y
+    # navegador con teclado
+    mpv yt-dlp qutebrowser
     # Audio, red, energía, hardware (alsa-sof-firmware: sin él los
     # portátiles Intel recientes no tienen tarjeta de sonido)
     pipewire wireplumber alsa-sof-firmware NetworkManager power-profiles-daemon
@@ -46,7 +54,7 @@ PACKAGES=(
     # Capturas y portapapeles
     grim slurp swappy wl-clipboard cliphist
     # Utilidades usadas por los scripts
-    jq libnotify curl
+    jq libnotify curl unzip
     # djxl: wallust no lee .jxl (los fondos de Fedora), wallpaper.sh los convierte
     libjxl-utils
     # Tema (los fondos de Fedora: programs.lua usa uno por defecto)
@@ -64,6 +72,19 @@ NERD_FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/
 # wallust no está en Fedora ni en un COPR al día: binario estático oficial
 WALLUST_VERSION="3.5.2"
 WALLUST_URL="https://codeberg.org/explosion-mental/wallust/releases/download/$WALLUST_VERSION/wallust-$WALLUST_VERSION-x86_64-unknown-linux-musl.tar.gz"
+
+# yazi (gestor de archivos en la terminal): no está en Fedora
+YAZI_VERSION="26.9.1"
+YAZI_URL="https://github.com/sxyazi/yazi/releases/download/v$YAZI_VERSION/yazi-x86_64-unknown-linux-gnu.zip"
+
+# uosc (interfaz de mpv): no está en Fedora
+UOSC_VERSION="5.13.0"
+UOSC_URL="https://github.com/tomasklaen/uosc/releases/download/$UOSC_VERSION/uosc.zip"
+
+# Flatpaks de Flathub
+FLATPAKS=(
+    com.spotify.Client   # el oficial: funciona con cuenta gratis y Premium
+)
 
 # -- Opciones ------------------------------------------------
 SI=0          # responder "sí" a todo
@@ -166,6 +187,32 @@ if (( SISTEMA )); then
         ok "todos los paquetes instalados"
     fi
 
+    # ffmpeg de Fedora (ffmpeg-free) no trae H.264/H.265: sin el completo
+    # de RPM Fusion mpv no abre la mayoría de vídeos
+    paso "ffmpeg completo (RPM Fusion)"
+    if ! rpm -q rpmfusion-free-release >/dev/null 2>&1; then
+        run sudo dnf install -y "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+    fi
+    if rpm -q ffmpeg >/dev/null 2>&1; then
+        ok "ffmpeg ya instalado"
+    elif rpm -q ffmpeg-free >/dev/null 2>&1; then
+        run sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
+    else
+        run sudo dnf install -y ffmpeg --allowerasing
+    fi
+
+    paso "Flatpaks"
+    if ! flatpak remotes --columns=name 2>/dev/null | grep -qx flathub; then
+        run sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    fi
+    for app in "${FLATPAKS[@]}"; do
+        if flatpak info "$app" >/dev/null 2>&1; then
+            ok "$app ya instalado"
+        else
+            run flatpak install -y --noninteractive flathub "$app"
+        fi
+    done
+
     # -- 2. Servicios ----------------------------------------
     paso "Servicios"
     for s in bluetooth power-profiles-daemon; do
@@ -208,6 +255,37 @@ else
     ok "instalado en ~/.local/bin/wallust"
 fi
 
+paso "yazi $YAZI_VERSION (gestor de archivos en la terminal)"
+if [[ "$("$HOME/.local/bin/yazi" --version 2>/dev/null)" == *"Version: $YAZI_VERSION "* ]]; then
+    ok "ya instalado"
+elif (( SIMULAR )); then
+    printf '  [simular] descargar %s en ~/.local/bin\n' "$YAZI_URL"
+else
+    tmp="$(mktemp -d)"
+    curl -fsSL "$YAZI_URL" -o "$tmp/yazi.zip"
+    unzip -q "$tmp/yazi.zip" -d "$tmp"
+    install -Dm755 -t "$HOME/.local/bin" "$tmp"/yazi-*/yazi "$tmp"/yazi-*/ya
+    rm -rf "$tmp"
+    ok "instalado en ~/.local/bin/yazi"
+fi
+
+paso "uosc $UOSC_VERSION (interfaz de mpv)"
+# No se puede preguntar la versión: se guarda al instalar
+UOSC_MARCA="$HOME/.config/mpv/scripts/uosc/.version"
+if [[ "$(cat "$UOSC_MARCA" 2>/dev/null)" == "$UOSC_VERSION" ]]; then
+    ok "ya instalado"
+elif (( SIMULAR )); then
+    printf '  [simular] descargar %s en ~/.config/mpv\n' "$UOSC_URL"
+else
+    tmp="$(mktemp -d)"
+    curl -fsSL "$UOSC_URL" -o "$tmp/uosc.zip"
+    rm -rf "$HOME/.config/mpv/scripts/uosc"
+    unzip -qo "$tmp/uosc.zip" -d "$HOME/.config/mpv"
+    printf '%s\n' "$UOSC_VERSION" > "$UOSC_MARCA"
+    rm -rf "$tmp"
+    ok "instalado en ~/.config/mpv/scripts/uosc"
+fi
+
 # -- 4. Stow -------------------------------------------------
 paso "Enlazando configuraciones con Stow"
 command -v stow >/dev/null || error "stow no está instalado (quita --sin-sistema o: sudo dnf install stow)"
@@ -215,7 +293,7 @@ command -v stow >/dev/null || error "stow no está instalado (quita --sin-sistem
 # Mueve a $BACKUP los archivos reales que impedirían a Stow crear
 # sus enlaces (p. ej. el .bashrc que trae Fedora).
 respaldados=0
-for pkg in "${STOW_PKGS[@]}" systemd; do
+for pkg in "${STOW_PKGS[@]}" "${STOW_NOFOLD[@]}"; do
     while IFS= read -r rel; do
         destino="$HOME/$rel"
         fuente="$DOTFILES/$pkg/$rel"
@@ -230,11 +308,11 @@ done
 (( respaldados )) && aviso "$respaldados archivo(s) movidos a $BACKUP"
 
 run stow -d "$DOTFILES" -t "$HOME" -R "${STOW_PKGS[@]}"
-# systemd sin plegar: ~/.config/systemd debe ser una carpeta real, o
-# `systemctl --user enable` escribiría sus enlaces dentro del repo.
-run stow -d "$DOTFILES" -t "$HOME" -R --no-folding systemd
+# Sin plegar (STOW_NOFOLD): si no, `systemctl --user enable`, uosc,
+# qutebrowser y wallust escribirían dentro del repo.
+run stow -d "$DOTFILES" -t "$HOME" -R --no-folding "${STOW_NOFOLD[@]}"
 run systemctl --user daemon-reload
-ok "paquetes enlazados: ${STOW_PKGS[*]} systemd"
+ok "paquetes enlazados: ${STOW_PKGS[*]} ${STOW_NOFOLD[*]}"
 
 # Los colores.* que importan Waybar, rofi, kitty... no están en el repo
 # (los genera wallust). Sin ellos Waybar arrancaría sin estilo.

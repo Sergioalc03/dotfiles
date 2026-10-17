@@ -28,3 +28,5 @@ rofi     = { src = 'rofi.rasi',      dst = '~/.config/rofi/colores.rasi' }
 kitty    = { src = 'kitty.conf',     dst = '~/.config/kitty/colores.conf' }
 btop     = { src = 'btop.theme',     dst = '~/.config/btop/themes/wallust.theme' }
 tmux     = { src = 'tmux.conf',      dst = '~/.config/tmux/colores.conf' }
+uosc     = { src = 'uosc.conf',      dst = '~/.config/mpv/script-opts/uosc.conf' }
+qutebrowser = { src = 'qutebrowser.py', dst = '~/.config/qutebrowser/colores.py' }

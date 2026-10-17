@@ -12,8 +12,9 @@
 # Si la imagen no existe pinta un color liso en vez de dejar basura.
 #
 # Además saca la paleta del fondo con wallust y recarga Hyprland,
-# Waybar, swaync, kitty, tmux y swayosd (rofi, wlogout, hyprlock y btop
-# la leen al abrirse; starship usa los colores de kitty). Con color
+# Waybar, swaync, kitty, tmux, swayosd y qutebrowser (rofi, wlogout,
+# hyprlock, btop y mpv la leen al abrirse; starship y yazi usan los
+# colores de kitty). Con color
 # liso se usa el tema Tokyo Night.
 # Requiere: awww (COPR scottames/awww), rofi, libnotify, wallust,
 #           libjxl-utils (djxl, .jxl)
@@ -62,6 +63,10 @@ recargar() {
     swaync-client --reload-css >/dev/null 2>&1
     pkill -USR1 -x kitty
     tmux source-file -q ~/.config/tmux/colores.conf 2>/dev/null
+    if pgrep -x qutebrowser >/dev/null; then
+        qutebrowser ':config-source' >/dev/null 2>&1 &
+        disown
+    fi
     if pkill -x swayosd-server; then
         swayosd-server >/dev/null 2>&1 &
         disown

@@ -1,0 +1,23 @@
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# YAZI: gestor de archivos en la terminal (SUPER + SHIFT + E, o «y»)
+# Solo lo que cambia respecto a los valores por defecto:
+#   yazi --debug muestra dónde lee la config.
+# Los colores salen de la paleta ANSI de kitty (wallust).
+# Teclas: F1 o ~ para la ayuda.
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+[mgr]
+sort_by        = "natural"  # archivo2 antes que archivo10
+sort_dir_first = true
+linemode       = "size"     # tamaño a la derecha de cada archivo
+show_hidden    = false      # «.» para mostrar/ocultar
+
+[opener]
+# Vídeo y audio con mpv (sin bloquear yazi)
+play = [ { run = 'mpv --player-operation-mode=pseudo-gui -- "$@"', orphan = true, desc = "Reproducir con mpv", for = "unix" } ]
+
+[open]
+prepend_rules = [
+    { mime = "video/*", use = [ "play", "reveal" ] },
+    { mime = "audio/*", use = [ "play", "reveal" ] },
+]
