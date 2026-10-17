@@ -7,6 +7,8 @@
 #                                             elegido, o el de programs.lua
 # Busca imágenes en ~/Imágenes/Fondos y /usr/share/backgrounds.
 # El fondo lo pinta awww con una transición (al iniciar sesión, sin ella).
+# Si está el escritorio con iconos (desktop.sh) se le pasa también,
+# porque pcmanfm-qt tapa a awww con su propio fondo.
 # Si la imagen no existe pinta un color liso en vez de dejar basura.
 #
 # Además saca la paleta del fondo con wallust y recarga Hyprland,
@@ -86,6 +88,13 @@ poner() {
         awww img "$img" --transition-type none
     else
         awww img "$img" "${TRANSICION[@]}"
+    fi
+    if pgrep -x pcmanfm-qt >/dev/null; then
+        if [[ -f "$img" ]]; then
+            pcmanfm-qt --profile hyprland -w "$img" --wallpaper-mode zoom
+        else
+            pcmanfm-qt --profile hyprland --wallpaper-mode color
+        fi
     fi
 }
 

@@ -34,6 +34,8 @@ PACKAGES=(
     greetd tuigreet dbus-tools glycin-loaders
     # Aplicaciones
     kitty btop Thunar thunar-volman thunar-archive-plugin gvfs pavucontrol
+    # Iconos en el escritorio (scripts/desktop.sh)
+    pcmanfm-qt
     # Audio, red, energía, hardware (alsa-sof-firmware: sin él los
     # portátiles Intel recientes no tienen tarjeta de sonido)
     pipewire wireplumber alsa-sof-firmware NetworkManager power-profiles-daemon

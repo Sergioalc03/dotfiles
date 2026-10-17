@@ -53,7 +53,7 @@ Qué hace:
 6. *(Pregunta)* greetd + tuigreet como pantalla de inicio de sesión (`/etc/greetd/config.toml`, sustituye a GDM/SDDM).
 7. *(Pregunta, si el portátil lo admite)* Modo conservación de la batería: regla udev `/etc/udev/rules.d/90-bateria.rules` con `charge_types=Long_Life`.
 
-Al terminar, cierra sesión y vuelve a entrar. El agente polkit, el fondo (awww), Waybar, swaync, hypridle, cliphist, swayosd, blueman, udiskie y `scripts/battery.sh` se lanzan desde `hyprland/.config/hypr/autostart.lua`.
+Al terminar, cierra sesión y vuelve a entrar. El agente polkit, el fondo (awww), los iconos del escritorio (pcmanfm-qt), Waybar, swaync, hypridle, cliphist, swayosd, blueman, udiskie y `scripts/battery.sh` se lanzan desde `hyprland/.config/hypr/autostart.lua`.
 
 ### Manual
 
@@ -100,6 +100,7 @@ Reglas de ventana (`window_rules.lua`): diálogos de abrir/guardar y herramienta
 
 - Programas por defecto (terminal, gestor de archivos, lanzador) y **fondo por defecto**: `hyprland/.config/hypr/programs.lua`.
 - **Fondo de pantalla**: `SUPER + W` muestra miniaturas de las imágenes de `~/Imágenes/Fondos` y `/usr/share/backgrounds`. También vale clic derecho en una imagen en Thunar → *Poner como fondo*. La elección se recuerda en `~/.local/state/fondo`. Si la imagen ya no existe, se pinta el color de fondo de Tokyo Night. Cada cambio regenera los colores (ver abajo). El fondo lo pinta **awww** con una transición en barrido (`TRANSICION` al principio de `scripts/wallpaper.sh`; tipos en `awww img --help`); al iniciar sesión aparece sin transición. Los `.jxl` se convierten a PNG en `~/.cache/fondo` porque ni awww ni wallust los leen.
+- **Iconos en el escritorio**: `scripts/desktop.sh` lanza `pcmanfm-qt --desktop`, que muestra `~/Escritorio`, la carpeta personal y la papelera (solo se ven en un espacio de trabajo sin ventanas). Clic derecho para crear carpetas o pegar; las carpetas se abren con Thunar. pcmanfm-qt pinta su propio fondo encima de awww, así que `wallpaper.sh` le pasa la misma imagen y **la transición en barrido no se ve**; para recuperarla, quita la línea de `desktop.sh` en `autostart.lua`. Sus ajustes (clic derecho → *Preferencias del escritorio*) se guardan en `~/.config/pcmanfm-qt/hyprland`, fuera del repo; `desktop.sh` crea los de partida la primera vez (margen superior para Waybar, abrir con Thunar).
 - **Clic derecho en Thunar**: *Crear carpeta*, *Crear documento* (archivo vacío o una plantilla de `~/Plantillas`), *Abrir terminal aquí* (kitty). Para añadir plantillas, deja cualquier archivo en `~/Plantillas`.
 - Atajos de teclado: `hyprland/.config/hypr/keybindings.lua`.
 - Aspecto de las ventanas (huecos 10/20, borde de 4 px, sombra amplia, desenfoque, puntero que se oculta a los 3 s): `appearance.lua`. Animaciones: `animations.lua`, con dos estilos: `ESTILO = "ja"` (el de Nebulix, deslizando con rebote) o `"suave"` (el original).

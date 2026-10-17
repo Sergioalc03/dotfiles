@@ -24,6 +24,11 @@ hl.on("hyprland.start", function()
     --    Requiere: awww (ver scripts/wallpaper.sh)
     hl.exec_cmd("~/.config/hypr/scripts/wallpaper.sh restaurar " .. programs.wallpaper)
 
+    -- 3a) Iconos en el escritorio (~/Escritorio). Pinta encima del fondo
+    --     de awww, por eso recibe el mismo (scripts/desktop.sh).
+    --     Requiere: pcmanfm-qt
+    hl.exec_cmd("~/.config/hypr/scripts/desktop.sh " .. programs.wallpaper)
+
     -- 3b) Tema oscuro para GTK4/libadwaita (scripts/theme.sh)
     hl.exec_cmd("~/.config/hypr/scripts/theme.sh")
 
