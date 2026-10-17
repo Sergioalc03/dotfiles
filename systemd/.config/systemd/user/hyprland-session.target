@@ -8,4 +8,7 @@ Description=Sesión de Hyprland
 Documentation=man:systemd.special(7)
 BindsTo=graphical-session.target
 Wants=graphical-session-pre.target
+# Waybar como servicio (lo trae el paquete waybar): con Restart=on-failure
+# vuelve solo si se cae (Waybar 0.15 se cierra a veces con SIGSEGV)
+Wants=waybar.service
 After=graphical-session-pre.target

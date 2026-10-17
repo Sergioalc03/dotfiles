@@ -56,7 +56,7 @@ Qué hace:
 6. *(Pregunta)* greetd + tuigreet como pantalla de inicio de sesión (`/etc/greetd/config.toml`, sustituye a GDM/SDDM).
 7. *(Pregunta, si el portátil lo admite)* Modo conservación de la batería: regla udev `/etc/udev/rules.d/90-bateria.rules` con `charge_types=Long_Life`.
 
-Al terminar, cierra sesión y vuelve a entrar. El agente polkit, el fondo (awww), los iconos del escritorio (pcmanfm-qt), Waybar, swaync, hypridle, cliphist, swayosd, blueman, udiskie y `scripts/battery.sh` se lanzan desde `hyprland/.config/hypr/autostart.lua`.
+Al terminar, cierra sesión y vuelve a entrar. El agente polkit, el fondo (awww), los iconos del escritorio (pcmanfm-qt), swaync, hypridle, cliphist, swayosd, blueman, udiskie y `scripts/battery.sh` se lanzan desde `hyprland/.config/hypr/autostart.lua`. **Waybar** es un servicio de systemd (`waybar.service`, lo arranca `hyprland-session.target`) para que vuelva solo si se cae: reiniciarlo con `systemctl --user restart waybar`, ver sus errores con `journalctl --user -u waybar`.
 
 ### Manual
 

@@ -11,8 +11,10 @@ hl.on("hyprland.start", function()
     --    xdg-desktop-portal fallan.
     --    Requiere: xdg-desktop-portal, xdg-desktop-portal-hyprland
     --    Después activa graphical-session.target (via hyprland-session.target,
-    --    paquete stow «systemd»): sin él xdg-desktop-portal no arranca.
-    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+    --    paquete stow «systemd»): sin él xdg-desktop-portal no arranca, y
+    --    es quien arranca Waybar. --all: los servicios necesitan todas las
+    --    variables de la sesión (Waybar, HYPRLAND_INSTANCE_SIGNATURE y tema).
+    hl.exec_cmd("dbus-update-activation-environment --systemd --all"
         .. " && systemctl --user start hyprland-session.target")
 
     -- 2) Agente de autenticación polkit.
@@ -34,7 +36,10 @@ hl.on("hyprland.start", function()
 
     -- 4) Resto de la sesión
     hl.exec_cmd(programs.terminal)
-    hl.exec_cmd("waybar")
+    -- Waybar NO se lanza aquí: es waybar.service (lo arranca
+    -- hyprland-session.target) para que systemd lo reinicie si se cae.
+    -- Reiniciarlo a mano: systemctl --user restart waybar
+    -- Ver sus errores:    journalctl --user -u waybar
     hl.exec_cmd("swaync")
 
     -- 5) Bloqueo por inactividad (config en hypridle.conf)
