@@ -11,7 +11,7 @@ hl.config({
         border_size = 2,
 
         col = {
-            -- Tokyo Night (misma paleta que kitty, Waybar, rofi, hyprlock)
+            -- Tokyo Night por si falta colores.lua (ver el final del archivo)
             active_border   = { colors = {"rgba(7aa2f7ee)", "rgba(bb9af7ee)"}, angle = 45 },
             inactive_border = "rgba(414868aa)",
         },
@@ -55,3 +55,8 @@ hl.config({
         disable_hyprland_logo   = false,
     },
 })
+
+-- Colores de borde sacados del fondo de pantalla. Los genera wallust
+-- (wallust/templates/hyprland.lua) y scripts/wallpaper.sh los aplica
+-- en caliente. pcall: si aún no existe, se quedan los de arriba.
+pcall(dofile, os.getenv("HOME") .. "/.config/hypr/colores.lua")

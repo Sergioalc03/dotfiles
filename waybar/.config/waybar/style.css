@@ -1,21 +1,11 @@
 /* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
- * WAYBAR - tema Tokyo Night (misma paleta que kitty.conf)
+ * WAYBAR - colores sacados del fondo de pantalla (wallust)
  * Módulos en "píldoras" sobre una barra translúcida.
+ * La paleta (@bg, @fg, @acento, @c1..@c6...) está en colores.css,
+ * que genera wallust (wallust/templates/gtk.css) al cambiar de fondo.
  * -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-@define-color bg       #1a1b26;
-@define-color surface  #24283b;
-@define-color overlay  #414868;
-@define-color fg       #c0caf5;
-@define-color fg-dim   #565f89;
-@define-color blue     #7aa2f7;
-@define-color cyan     #7dcfff;
-@define-color teal     #73daca;
-@define-color green    #9ece6a;
-@define-color yellow   #e0af68;
-@define-color orange   #ff9e64;
-@define-color red      #f7768e;
-@define-color magenta  #bb9af7;
+@import url("colores.css");
 
 * {
     font-family: 'JetBrainsMono Nerd Font', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
@@ -87,7 +77,7 @@ tooltip label {
 /* -- Izquierda ----------------------------------------------- */
 
 #custom-appmenu {
-    color: @blue;
+    color: @acento;
     font-size: 16px;
     padding: 0 12px 0 10px;
 }
@@ -124,7 +114,7 @@ tooltip label {
 }
 
 #workspaces button.active {
-    background-color: @blue;
+    background-color: @acento;
     color: @bg;
     padding: 0 12px;
 }
@@ -139,11 +129,11 @@ tooltip label {
 }
 
 #idle_inhibitor.activated {
-    color: @yellow;
+    color: @c3;
 }
 
 #mpris {
-    color: @magenta;
+    color: @acento2;
 }
 
 #mpris.paused {
@@ -153,7 +143,7 @@ tooltip label {
 /* -- Derecha ------------------------------------------------- */
 
 #pulseaudio {
-    color: @blue;
+    color: @acento;
 }
 
 #pulseaudio.muted {
@@ -161,15 +151,15 @@ tooltip label {
 }
 
 #cpu {
-    color: @green;
+    color: @c2;
 }
 
 #memory {
-    color: @magenta;
+    color: @acento2;
 }
 
 #temperature {
-    color: @cyan;
+    color: @c6;
 }
 
 #temperature.critical {
@@ -177,7 +167,7 @@ tooltip label {
 }
 
 #network {
-    color: @teal;
+    color: @c6;
 }
 
 #network.disconnected {
@@ -185,7 +175,7 @@ tooltip label {
 }
 
 #bluetooth {
-    color: @blue;
+    color: @acento;
 }
 
 #bluetooth.off,
@@ -194,12 +184,12 @@ tooltip label {
 }
 
 #battery {
-    color: @green;
+    color: @c2;
 }
 
 #battery.charging,
 #battery.plugged {
-    color: @teal;
+    color: @c6;
 }
 
 #battery.warning:not(.charging) {
@@ -229,11 +219,11 @@ tooltip label {
 }
 
 #power-profiles-daemon.balanced {
-    color: @blue;
+    color: @acento;
 }
 
 #power-profiles-daemon.power-saver {
-    color: @green;
+    color: @c2;
 }
 
 #clock {
@@ -242,7 +232,7 @@ tooltip label {
 }
 
 #custom-notifications {
-    color: @yellow;
+    color: @c3;
 }
 
 #custom-power {

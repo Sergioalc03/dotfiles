@@ -4,7 +4,7 @@ Configuración de mi escritorio **Hyprland** (config en Lua, 0.56+) sobre **Fedo
 
 ## Contenido
 
-Todo usa la paleta **Tokyo Night** (`#1a1b26` fondo, `#c0caf5` texto, `#7aa2f7` azul, `#bb9af7` violeta…): kitty, Waybar, rofi (`tokyonight.rasi`), swaync, wlogout, swayosd, hyprlock y los bordes de ventana.
+Los colores **salen del fondo de pantalla** con [wallust](https://codeberg.org/explosion-mental/wallust): al elegir fondo (`SUPER + W`) se genera una paleta y se aplica a los bordes de ventana, Waybar, rofi, swaync, wlogout, swayosd, hyprlock, kitty y btop. Con color liso (sin imagen) se usa **Tokyo Night**. Más detalles en [Colores](#colores).
 
 | Paquete    | Destino                    | Qué es                                   |
 |------------|----------------------------|------------------------------------------|
@@ -23,6 +23,7 @@ Todo usa la paleta **Tokyo Night** (`#1a1b26` fondo, `#c0caf5` texto, `#7aa2f7` 
 | `git`      | `~/.gitconfig`             | Identidad y opciones de Git              |
 | `swayosd`  | `~/.config/swayosd`        | Estilo del OSD de volumen/brillo         |
 | `thunar`   | `~/.config/Thunar/uca.xml` | Acciones del clic derecho de Thunar      |
+| `wallust`  | `~/.config/wallust`        | Paleta desde el fondo y sus plantillas   |
 
 `plantillas/` no es un paquete de Stow: `install.sh` **copia** su contenido a `~/Plantillas` (Thunar → clic derecho → *Crear documento*). Se copia para que un documento nuevo nunca pueda editar el archivo del repo.
 
@@ -43,8 +44,8 @@ Qué hace:
 
 1. Activa los COPR `ashbuk/Hyprland-Fedora` (Hyprland 0.56 con config Lua, hyprlock, hypridle, portal), `atim/starship` y `erikreider/swayosd`, e instala con dnf los paquetes que falten (lista en `PACKAGES` dentro del script).
 2. Habilita `bluetooth` y `power-profiles-daemon`.
-3. Instala **JetBrainsMono Nerd Font** en `~/.local/share/fonts` (no está en los repos de Fedora).
-4. Enlaza todos los paquetes con Stow. Los archivos reales que estorben (como el `.bashrc` que trae Fedora) se mueven antes a `~/.dotfiles-respaldo/<fecha>/`.
+3. Instala **JetBrainsMono Nerd Font** en `~/.local/share/fonts` y **wallust** (binario oficial) en `~/.local/bin`; ninguno está en los repos de Fedora.
+4. Enlaza todos los paquetes con Stow. Los archivos reales que estorben (como el `.bashrc` que trae Fedora) se mueven antes a `~/.dotfiles-respaldo/<fecha>/`. Después genera la paleta inicial (Tokyo Night).
 5. Carpetas de usuario en español (`~/.config/user-dirs.dirs`, incluida `~/Imágenes/Capturas`). Quita las carpetas en inglés solo si están vacías. Pone Thunar como gestor de archivos por defecto.
 6. *(Pregunta)* greetd + tuigreet como pantalla de inicio de sesión (`/etc/greetd/config.toml`, sustituye a GDM/SDDM).
 7. *(Pregunta, si el portátil lo admite)* Modo conservación de la batería: regla udev `/etc/udev/rules.d/90-bateria.rules` con `charge_types=Long_Life`.
@@ -53,7 +54,7 @@ Al terminar, cierra sesión y vuelve a entrar. El agente polkit, swaybg, Waybar,
 
 ### Manual
 
-Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar`. Si ya existen archivos en el destino, Stow se negará a sobrescribirlos: muévelos antes, o usa `stow --adopt` y revisa el `git diff`.
+Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar wallust`, y luego `wallust theme Tokyo-Night -s` para crear los archivos de colores (sin ellos Waybar sale sin estilo). Si ya existen archivos en el destino, Stow se negará a sobrescribirlos: muévelos antes, o usa `stow --adopt` y revisa el `git diff`.
 
 ## Atajos principales
 
@@ -89,6 +90,28 @@ Reglas de ventana (`window_rules.lua`): diálogos de abrir/guardar y herramienta
 ## Personalizar
 
 - Programas por defecto (terminal, gestor de archivos, lanzador) y **fondo por defecto**: `hyprland/.config/hypr/programs.lua`.
-- **Fondo de pantalla**: `SUPER + W` muestra miniaturas de las imágenes de `~/Imágenes/Fondos` y `/usr/share/backgrounds`. También vale clic derecho en una imagen en Thunar → *Poner como fondo*. La elección se recuerda en `~/.local/state/fondo`. Si la imagen ya no existe, se pinta el color de fondo de Tokyo Night.
+- **Fondo de pantalla**: `SUPER + W` muestra miniaturas de las imágenes de `~/Imágenes/Fondos` y `/usr/share/backgrounds`. También vale clic derecho en una imagen en Thunar → *Poner como fondo*. La elección se recuerda en `~/.local/state/fondo`. Si la imagen ya no existe, se pinta el color de fondo de Tokyo Night. Cada cambio regenera los colores (ver abajo).
 - **Clic derecho en Thunar**: *Crear carpeta*, *Crear documento* (archivo vacío o una plantilla de `~/Plantillas`), *Abrir terminal aquí* (kitty). Para añadir plantillas, deja cualquier archivo en `~/Plantillas`.
 - Atajos de teclado: `hyprland/.config/hypr/keybindings.lua`.
+
+## Colores
+
+`hypr/scripts/wallpaper.sh` llama a `wallust run <imagen>` al cambiar de fondo. wallust rellena las plantillas de `wallust/.config/wallust/templates/` y escribe un archivo `colores.*` en la carpeta de cada programa:
+
+| Plantilla | Archivo generado | Lo usa |
+| --- | --- | --- |
+| `hyprland.lua` | `~/.config/hypr/colores.lua` | `appearance.lua` (bordes) |
+| `hyprlock.conf` | `~/.config/hypr/hyprlock-colores.conf` | `hyprlock.conf` |
+| `gtk.css` | `~/.config/{waybar,wlogout,swayosd}/colores.css` | sus `style.css` |
+| `swaync.css` | `~/.config/swaync/colores.css` | `swaync/style.css` |
+| `rofi.rasi` | `~/.config/rofi/colores.rasi` | `rofi/tema.rasi` |
+| `kitty.conf` | `~/.config/kitty/colores.conf` | `kitty.conf` |
+| `btop.theme` | `~/.config/btop/themes/wallust.theme` | `btop.conf` |
+
+Los archivos generados están en `.gitignore`: para cambiar un color se edita la **plantilla**, no el `colores.*`. Hyprland, Waybar, swaync, kitty y swayosd se recargan solos; rofi, wlogout, hyprlock y btop leen la paleta al abrirse.
+
+- Nombres en CSS/rofi: `@bg`, `@surface`, `@overlay`, `@fg`, `@fg-dim`, `@acento` (= `color4`), `@acento2` (= `color5`), `@c1`…`@c6`. `@red` y `@orange` son fijos para que los avisos (batería crítica, apagar) sigan siendo rojos.
+- Volver a Tokyo Night sin cambiar el fondo: `wallust theme Tokyo-Night -s` (o cualquier otro de `wallust theme list`).
+- Otra paleta para la misma imagen: `palette` en `wallust.toml` (p. ej. `harddark`, `softdark`) o a mano `wallust run -p harddark <imagen>`.
+- Los `.jxl` (fondos de Fedora) se convierten a PNG en `~/.cache/fondo` con `djxl` (paquete `libjxl-utils`), porque wallust no los lee.
+

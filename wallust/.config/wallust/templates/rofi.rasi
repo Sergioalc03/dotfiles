@@ -1,0 +1,12 @@
+/* Generado por wallust (templates/rofi.rasi). NO editar: se
+ * sobrescribe al cambiar de fondo. Lo importa rofi/tema.rasi. */
+
+* {
+    bg:      {{background}};
+    surface: {{background | lighten(0.08)}};
+    overlay: {{background | lighten(0.18)}};
+    fg:      {{foreground}};
+    fg-dim:  {{foreground | blend(background)}};
+    acento:  {{color4}};
+    acento2: {{color5}};
+}

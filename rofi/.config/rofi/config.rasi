@@ -8,4 +8,4 @@ configuration {
     drun-display-format: "{name}";
 }
 
-@theme "~/.config/rofi/tokyonight.rasi"
+@theme "~/.config/rofi/tema.rasi"

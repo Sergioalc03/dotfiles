@@ -5,8 +5,8 @@
 # Deja el escritorio listo en una instalación limpia:
 #   1. COPRs y paquetes de dnf
 #   2. Servicios (bluetooth, perfiles de energía)
-#   3. Fuente JetBrainsMono Nerd Font
-#   4. Enlaces con GNU Stow (respalda lo que estorbe)
+#   3. Fuente JetBrainsMono Nerd Font y wallust (colores del fondo)
+#   4. Enlaces con GNU Stow (respalda lo que estorbe) y paleta inicial
 #   5. Ajustes de usuario: carpetas en español, Thunar por defecto
 #   6. greetd + tuigreet como pantalla de inicio de sesión (pregunta)
 #   7. Modo conservación de la batería con udev (pregunta)
@@ -18,7 +18,7 @@ set -euo pipefail
 DOTFILES="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
 BACKUP="$HOME/.dotfiles-respaldo/$(date +%Y%m%d-%H%M%S)"
 
-STOW_PKGS=(hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar)
+STOW_PKGS=(hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar wallust)
 
 COPRS=(
     ashbuk/Hyprland-Fedora   # hyprland 0.56 (config Lua), hyprlock, hypridle, portal
@@ -40,6 +40,8 @@ PACKAGES=(
     grim slurp swappy wl-clipboard cliphist
     # Utilidades usadas por los scripts
     jq libnotify curl
+    # djxl: wallust no lee .jxl (los fondos de Fedora), wallpaper.sh los convierte
+    libjxl-utils
     # Tema (los fondos de Fedora: programs.lua usa uno por defecto)
     "f$(rpm -E %fedora)-backgrounds-base"
     adw-gtk3-theme papirus-icon-theme breeze-cursor-theme qt6ct
@@ -51,6 +53,10 @@ PACKAGES=(
 )
 
 NERD_FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.tar.xz"
+
+# wallust no está en Fedora ni en un COPR al día: binario estático oficial
+WALLUST_VERSION="3.5.2"
+WALLUST_URL="https://codeberg.org/explosion-mental/wallust/releases/download/$WALLUST_VERSION/wallust-$WALLUST_VERSION-x86_64-unknown-linux-musl.tar.gz"
 
 # -- Opciones ------------------------------------------------
 SI=0          # responder "sí" a todo
@@ -184,6 +190,17 @@ else
     fi
 fi
 
+paso "wallust $WALLUST_VERSION (colores sacados del fondo)"
+if [[ "$("$HOME/.local/bin/wallust" --version 2>/dev/null)" == "wallust $WALLUST_VERSION "* ]]; then
+    ok "ya instalado"
+elif (( SIMULAR )); then
+    printf '  [simular] descargar %s en ~/.local/bin\n' "$WALLUST_URL"
+else
+    mkdir -p "$HOME/.local/bin"
+    curl -fsSL "$WALLUST_URL" | tar -xzf - -C "$HOME/.local/bin" wallust
+    ok "instalado en ~/.local/bin/wallust"
+fi
+
 # -- 4. Stow -------------------------------------------------
 paso "Enlazando configuraciones con Stow"
 command -v stow >/dev/null || error "stow no está instalado (quita --sin-sistema o: sudo dnf install stow)"
@@ -207,6 +224,16 @@ done
 
 run stow -d "$DOTFILES" -t "$HOME" -R "${STOW_PKGS[@]}"
 ok "paquetes enlazados: ${STOW_PKGS[*]}"
+
+# Los colores.* que importan Waybar, rofi, kitty... no están en el repo
+# (los genera wallust). Sin ellos Waybar arrancaría sin estilo.
+paso "Paleta de colores inicial (Tokyo Night)"
+if [[ -f "$HOME/.config/waybar/colores.css" ]]; then
+    ok "ya generada (cambia con el fondo: SUPER + W)"
+else
+    run "$HOME/.local/bin/wallust" theme Tokyo-Night -s -q
+    ok "generada; al elegir fondo con SUPER + W se saca de la imagen"
+fi
 
 # -- 5. Ajustes de usuario -----------------------------------
 paso "Carpetas de usuario en español"

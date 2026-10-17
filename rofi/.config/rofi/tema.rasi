@@ -1,16 +1,13 @@
 /* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
- * ROFI - tema Tokyo Night (misma paleta que kitty y Waybar)
+ * ROFI - colores sacados del fondo de pantalla (wallust)
+ * La paleta (bg, fg, acento...) está en colores.rasi, que genera
+ * wallust (wallust/templates/rofi.rasi) al cambiar de fondo.
  * -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
+@import "colores.rasi"
+
 * {
-    bg:       #1a1b26;
-    surface:  #24283b;
-    overlay:  #414868;
-    fg:       #c0caf5;
-    fg-dim:   #565f89;
-    blue:     #7aa2f7;
-    magenta:  #bb9af7;
-    red:      #f7768e;
+    red: #f7768e; /* fijo: avisos */
 
     background-color: transparent;
     text-color:       @fg;
@@ -20,7 +17,7 @@ window {
     width:            600px;
     background-color: @bg;
     border:           2px;
-    border-color:     @blue;
+    border-color:     @acento;
     border-radius:    12px;
     padding:          12px;
 }
@@ -39,7 +36,7 @@ inputbar {
 }
 
 prompt {
-    text-color: @blue;
+    text-color: @acento;
 }
 
 entry {
@@ -75,7 +72,7 @@ element alternate.urgent {
 
 element normal.active,
 element alternate.active {
-    text-color: @magenta;
+    text-color: @acento2;
 }
 
 element selected.normal,
@@ -111,6 +108,6 @@ button {
 }
 
 button selected {
-    background-color: @blue;
-    text-color:       #1a1b26;
+    background-color: @acento;
+    text-color:       @bg;
 }

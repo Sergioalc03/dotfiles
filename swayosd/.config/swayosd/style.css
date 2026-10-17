@@ -1,10 +1,13 @@
-/* SWAYOSD - OSD de volumen/brillo, tema Tokyo Night
- * (sustituye a /etc/xdg/swayosd/style.css) */
+/* SWAYOSD - OSD de volumen/brillo (sustituye a /etc/xdg/swayosd/style.css)
+ * Colores sacados del fondo de pantalla: los genera wallust
+ * (wallust/templates/gtk.css) en colores.css al cambiar de fondo. */
+
+@import url("colores.css");
 
 window#osd {
   border-radius: 999px;
-  border: 2px solid #414868;
-  background: alpha(#1a1b26, 0.92);
+  border: 2px solid @overlay;
+  background: alpha(@bg, 0.92);
 }
 
 window#osd #container {
@@ -13,7 +16,7 @@ window#osd #container {
 
 window#osd image,
 window#osd label {
-  color: #7aa2f7;
+  color: @acento;
 }
 
 window#osd progressbar:disabled,
@@ -34,7 +37,7 @@ window#osd segment {
   min-height: inherit;
   border-radius: inherit;
   border: none;
-  background: #414868;
+  background: @overlay;
 }
 
 window#osd progress,
@@ -42,7 +45,7 @@ window#osd segment.active {
   min-height: inherit;
   border-radius: inherit;
   border: none;
-  background: #7aa2f7;
+  background: @acento;
 }
 
 window#osd segment {

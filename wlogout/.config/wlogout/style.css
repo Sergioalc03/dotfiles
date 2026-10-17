@@ -1,21 +1,24 @@
+/* Colores sacados del fondo de pantalla: los genera wallust
+ * (wallust/templates/gtk.css) en colores.css al cambiar de fondo. */
+@import url("colores.css");
+
 * {
 	background-image: none;
 	box-shadow: none;
 }
 
-/* Tema Tokyo Night (misma paleta que kitty y Waybar) */
 window {
-	background-color: rgba(26, 27, 38, 0.85);
+	background-color: alpha(@bg, 0.85);
 	font-family: "JetBrainsMono Nerd Font";
 	font-size: 14px;
 }
 
 button {
 	border-radius: 16px;
-	border-color: #414868;
-	text-decoration-color: #c0caf5;
-	color: #c0caf5;
-	background-color: #24283b;
+	border-color: @overlay;
+	text-decoration-color: @fg;
+	color: @fg;
+	background-color: @surface;
 	border-style: solid;
 	border-width: 2px;
 	margin: 10px;
@@ -25,15 +28,15 @@ button {
 }
 
 button:focus, button:active, button:hover {
-	background-color: #414868;
-	border-color: #7aa2f7;
-	color: #7aa2f7;
+	background-color: @overlay;
+	border-color: @acento;
+	color: @acento;
 	outline-style: none;
 }
 
 #shutdown:hover, #shutdown:focus {
-	border-color: #f7768e;
-	color: #f7768e;
+	border-color: @red;
+	color: @red;
 }
 
 #lock {

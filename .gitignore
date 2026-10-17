@@ -6,3 +6,14 @@
 
 # btop guarda aquí su log
 btop/.config/btop/btop.log
+
+# Paletas que genera wallust al cambiar de fondo (wallust/wallust.toml)
+hyprland/.config/hypr/colores.lua
+hyprland/.config/hypr/hyprlock-colores.conf
+waybar/.config/waybar/colores.css
+swaync/.config/swaync/colores.css
+wlogout/.config/wlogout/colores.css
+swayosd/.config/swayosd/colores.css
+rofi/.config/rofi/colores.rasi
+kitty/.config/kitty/colores.conf
+btop/.config/btop/themes/

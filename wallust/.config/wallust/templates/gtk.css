@@ -1,0 +1,23 @@
+/* Generado por wallust (templates/gtk.css). NO editar: se sobrescribe
+ * al cambiar de fondo. Lo importan Waybar, wlogout y swayosd. */
+
+/* Base */
+@define-color bg      {{background}};
+@define-color surface {{background | lighten(0.08)}};
+@define-color overlay {{background | lighten(0.18)}};
+@define-color fg      {{foreground}};
+@define-color fg-dim  {{foreground | blend(background)}};
+
+/* Acentos (cambian con el fondo) */
+@define-color c1 {{color1}};
+@define-color c2 {{color2}};
+@define-color c3 {{color3}};
+@define-color c4 {{color4}};
+@define-color c5 {{color5}};
+@define-color c6 {{color6}};
+@define-color acento  @c4;
+@define-color acento2 @c5;
+
+/* Avisos: fijos para que «rojo» siga significando peligro */
+@define-color red    #f7768e;
+@define-color orange #ff9e64;

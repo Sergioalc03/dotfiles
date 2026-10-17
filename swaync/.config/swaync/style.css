@@ -1,17 +1,8 @@
-/* Tema Tokyo Night (misma paleta que kitty y Waybar) */
+/* Colores sacados del fondo de pantalla: los genera wallust
+ * (wallust/templates/swaync.css) en colores.css al cambiar de fondo. */
+@import url("colores.css");
+
 :root {
-  --cc-bg: rgba(26, 27, 38, 0.92);
-  --noti-border-color: rgba(65, 72, 104, 0.9);
-  --noti-bg: 36, 40, 59;
-  --noti-bg-alpha: 0.95;
-  --noti-bg-darker: rgb(26, 27, 38);
-  --noti-bg-hover: rgb(41, 46, 66);
-  --noti-bg-focus: rgba(65, 72, 104, 0.6);
-  --noti-close-bg: rgb(65, 72, 104);
-  --noti-close-bg-hover: rgb(247, 118, 142);
-  --text-color: rgb(192, 202, 245);
-  --text-color-disabled: rgb(86, 95, 137);
-  --bg-selected: rgb(122, 162, 247);
   --notification-icon-size: 64px;
   --notification-app-icon-size: calc(var(--notification-icon-size) / 3);
   --notification-group-icon-size: 32px;
@@ -28,21 +19,6 @@
   --group-collapse-transition: var(--group-collapse-tranistion);
 }
 
-/* Fallback for older CSS themes */
-/* Fallback for older CSS themes */
-@define-color cc-bg rgba(26, 27, 38, 0.92);
-@define-color noti-border-color rgba(65, 72, 104, 0.9);
-@define-color noti-bg rgba(36, 40, 59, 0.95);
-@define-color noti-bg-opaque rgb(36, 40, 59);
-@define-color noti-bg-darker rgb(26, 27, 38);
-@define-color noti-bg-hover rgb(41, 46, 66);
-@define-color noti-bg-hover-opaque rgb(41, 46, 66);
-@define-color noti-bg-focus rgba(65, 72, 104, 0.6);
-@define-color noti-close-bg rgba(255, 255, 255, 0.1);
-@define-color noti-close-bg-hover rgba(255, 255, 255, 0.15);
-@define-color text-color rgb(192, 202, 245);
-@define-color text-color-disabled rgb(86, 95, 137);
-@define-color bg-selected rgb(122, 162, 247);
 notificationwindow, blankwindow {
   background: transparent;
 }

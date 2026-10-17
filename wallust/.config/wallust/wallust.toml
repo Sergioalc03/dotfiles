@@ -1,0 +1,29 @@
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# WALLUST - colores sacados del fondo de pantalla
+# https://explosion-mental.codeberg.page/wallust/
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# Lo lanza hypr/scripts/wallpaper.sh al cambiar de fondo (SUPER + W).
+# Sin fondo (color liso) se usa el tema Tokyo Night incluido:
+#   wallust theme Tokyo-Night
+# Probar a mano con otra paleta:  wallust run -p harddark <imagen>
+
+backend     = "fastresize"
+color_space = "lch"
+palette     = "dark"
+
+# Evita colores ilegibles sobre el fondo con imágenes muy oscuras/claras
+check_contrast = true
+
+# -- Plantillas ------------------------------------------------
+# src: relativo a templates/ ; dst: el archivo que lee cada programa.
+# Los dst están en .gitignore: se regeneran, NO se editan a mano.
+[templates]
+hyprland = { src = 'hyprland.lua',   dst = '~/.config/hypr/colores.lua' }
+hyprlock = { src = 'hyprlock.conf',  dst = '~/.config/hypr/hyprlock-colores.conf' }
+waybar   = { src = 'gtk.css',        dst = '~/.config/waybar/colores.css' }
+swaync   = { src = 'swaync.css',     dst = '~/.config/swaync/colores.css' }
+wlogout  = { src = 'gtk.css',        dst = '~/.config/wlogout/colores.css' }
+swayosd  = { src = 'gtk.css',        dst = '~/.config/swayosd/colores.css' }
+rofi     = { src = 'rofi.rasi',      dst = '~/.config/rofi/colores.rasi' }
+kitty    = { src = 'kitty.conf',     dst = '~/.config/kitty/colores.conf' }
+btop     = { src = 'btop.theme',     dst = '~/.config/btop/themes/wallust.theme' }

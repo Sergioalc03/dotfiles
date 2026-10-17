@@ -1,0 +1,32 @@
+/* Generado por wallust (templates/swaync.css). NO editar: se
+ * sobrescribe al cambiar de fondo. Lo importa swaync/style.css. */
+
+:root {
+  --cc-bg: rgba({{background | rgb}}, 0.92);
+  --noti-border-color: rgba({{background | lighten(0.18) | rgb}}, 0.9);
+  --noti-bg: {{background | lighten(0.08) | rgb}};
+  --noti-bg-alpha: 0.95;
+  --noti-bg-darker: rgb({{background | rgb}});
+  --noti-bg-hover: rgb({{background | lighten(0.12) | rgb}});
+  --noti-bg-focus: rgba({{background | lighten(0.18) | rgb}}, 0.6);
+  --noti-close-bg: rgb({{background | lighten(0.18) | rgb}});
+  --noti-close-bg-hover: rgb(247, 118, 142);
+  --text-color: rgb({{foreground | rgb}});
+  --text-color-disabled: rgb({{foreground | blend(background) | rgb}});
+  --bg-selected: rgb({{color4 | rgb}});
+}
+
+/* Fallback for older CSS themes */
+@define-color cc-bg rgba({{background | rgb}}, 0.92);
+@define-color noti-border-color rgba({{background | lighten(0.18) | rgb}}, 0.9);
+@define-color noti-bg rgba({{background | lighten(0.08) | rgb}}, 0.95);
+@define-color noti-bg-opaque rgb({{background | lighten(0.08) | rgb}});
+@define-color noti-bg-darker rgb({{background | rgb}});
+@define-color noti-bg-hover rgb({{background | lighten(0.12) | rgb}});
+@define-color noti-bg-hover-opaque rgb({{background | lighten(0.12) | rgb}});
+@define-color noti-bg-focus rgba({{background | lighten(0.18) | rgb}}, 0.6);
+@define-color noti-close-bg rgba(255, 255, 255, 0.1);
+@define-color noti-close-bg-hover rgba(255, 255, 255, 0.15);
+@define-color text-color rgb({{foreground | rgb}});
+@define-color text-color-disabled rgb({{foreground | blend(background) | rgb}});
+@define-color bg-selected rgb({{color4 | rgb}});
