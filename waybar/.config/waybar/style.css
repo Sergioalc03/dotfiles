@@ -1,6 +1,6 @@
 /* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
- * WAYBAR - colores sacados del fondo de pantalla (wallust)
- * Módulos en "píldoras" sobre una barra translúcida.
+ * WAYBAR - estilo Nebulix (Samtroulcode/dotfiles)
+ * Barra transparente y flotante; cada módulo o grupo es un bloque.
  * La paleta (@bg, @fg, @acento, @c1..@c6...) está en colores.css,
  * que genera wallust (wallust/templates/gtk.css) al cambiar de fondo.
  * -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -10,16 +10,15 @@
 * {
     font-family: 'JetBrainsMono Nerd Font', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
     font-size: 13px;
+    font-weight: bold;
     border: none;
     border-radius: 0;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: alpha(@bg, 0.85);
+    background: transparent;
     color: @fg;
-    transition-property: background-color;
-    transition-duration: .5s;
 }
 
 window#waybar.hidden {
@@ -27,59 +26,88 @@ window#waybar.hidden {
 }
 
 tooltip {
-    background-color: @bg;
-    border: 1px solid @overlay;
-    border-radius: 8px;
+    background-color: @surface;
+    border: 2px solid @acento;
+    border-radius: 6px;
 }
 
 tooltip label {
     color: @fg;
+    font-weight: normal;
+    padding: 2px 4px;
 }
 
-/* -- Píldoras ------------------------------------------------ */
+/* -- Bloques ------------------------------------------------- */
 
 #custom-appmenu,
+#quicklinks,
 #tray,
 #workspaces,
-#idle_inhibitor,
 #mpris,
-#pulseaudio,
+#sound,
 #hardware,
 #network,
 #bluetooth,
 #bateria,
+#idle_inhibitor,
 #clock,
 #custom-notifications,
 #custom-power {
-    background-color: @surface;
-    border-radius: 10px;
-    margin: 4px 2px;
+    background-color: alpha(@bg, 0.85);
+    border-radius: 5px;
     padding: 0 10px;
 }
 
-/* Módulos dentro de grupos: sin píldora propia */
+/* Módulos dentro de un grupo: separados, sin bloque propio */
+#pulseaudio,
 #cpu,
 #memory,
+#disk,
 #temperature,
 #battery,
 #power-profiles-daemon {
-    padding: 0 6px;
+    padding: 0 5px;
 }
 
-.modules-left > widget:first-child > * {
-    margin-left: 8px;
-}
-
-.modules-right > widget:last-child > * {
-    margin-right: 8px;
+/* Hover: relleno de color de acento (como Nebulix) */
+#custom-appmenu:hover,
+#custom-quicklink1:hover,
+#custom-quicklink2:hover,
+#custom-quicklink3:hover,
+#custom-quicklink4:hover,
+#mpris:hover,
+#sound:hover,
+#hardware:hover,
+#network:hover,
+#bluetooth:hover,
+#idle_inhibitor:hover,
+#clock:hover,
+#custom-notifications:hover,
+#custom-power:hover {
+    background-color: @acento;
+    color: @bg;
+    transition: background-color 150ms ease-in-out;
 }
 
 /* -- Izquierda ----------------------------------------------- */
 
 #custom-appmenu {
     color: @acento;
-    font-size: 16px;
+    font-size: 18px;
     padding: 0 12px 0 10px;
+}
+
+#quicklinks {
+    padding: 0 4px;
+}
+
+#custom-quicklink1,
+#custom-quicklink2,
+#custom-quicklink3,
+#custom-quicklink4 {
+    font-size: 17px;
+    padding: 0 8px;
+    border-radius: 5px;
 }
 
 #tray > .passive {
@@ -89,7 +117,7 @@ tooltip label {
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
     background-color: @red;
-    border-radius: 6px;
+    border-radius: 5px;
 }
 
 /* -- Centro -------------------------------------------------- */
@@ -100,10 +128,10 @@ tooltip label {
 
 #workspaces button {
     padding: 0 6px;
-    margin: 3px 2px;
+    margin: 4px 1px;
     color: @fg-dim;
     background: transparent;
-    border-radius: 8px;
+    border-radius: 5px;
     transition: all 0.2s ease;
 }
 
@@ -124,72 +152,36 @@ tooltip label {
     color: @bg;
 }
 
-#idle_inhibitor {
+#mpris.paused,
+#mpris.stopped {
     color: @fg-dim;
 }
 
-#idle_inhibitor.activated {
-    color: @c3;
-}
-
-#mpris {
-    color: @acento2;
-}
-
-#mpris.paused {
-    color: @fg-dim;
-}
+/* El bloque es #mpris y no el grupo #media: sin nada sonando Waybar
+ * oculta mpris y no queda un bloque vacío (GTK3 no tiene :empty) */
 
 /* -- Derecha ------------------------------------------------- */
 
-#pulseaudio {
-    color: @acento;
-}
-
-#pulseaudio.muted {
-    color: @fg-dim;
-}
-
-#cpu {
-    color: @c2;
-}
-
-#memory {
-    color: @acento2;
-}
-
-#temperature {
-    color: @c6;
-}
-
-#temperature.critical {
-    color: @red;
-}
-
-#network {
-    color: @c6;
-}
-
-#network.disconnected {
-    color: @red;
-}
-
-#bluetooth {
-    color: @acento;
-}
-
+#pulseaudio.muted,
+#pulseaudio.source-muted,
+#idle_inhibitor,
 #bluetooth.off,
 #bluetooth.disabled {
     color: @fg-dim;
 }
 
-#battery {
-    color: @c2;
+#idle_inhibitor.activated {
+    color: @acento2;
+}
+
+#temperature.critical,
+#network.disconnected {
+    color: @red;
 }
 
 #battery.charging,
 #battery.plugged {
-    color: @c6;
+    color: @acento;
 }
 
 #battery.warning:not(.charging) {
@@ -206,7 +198,7 @@ tooltip label {
 /* steps() en vez de linear para gastar menos CPU */
 #battery.critical:not(.charging) {
     color: @red;
-    border-radius: 8px;
+    border-radius: 5px;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -218,36 +210,17 @@ tooltip label {
     color: @red;
 }
 
-#power-profiles-daemon.balanced {
+#power-profiles-daemon.power-saver {
     color: @acento;
 }
 
-#power-profiles-daemon.power-saver {
-    color: @c2;
-}
-
-#clock {
-    color: @fg;
-    font-weight: bold;
-}
-
 #custom-notifications {
-    color: @c3;
+    font-size: 15px;
 }
 
 #custom-power {
     color: @red;
     padding: 0 12px 0 10px;
-}
-
-/* Hover genérico en módulos clicables */
-#custom-appmenu:hover,
-#pulseaudio:hover,
-#network:hover,
-#bluetooth:hover,
-#custom-notifications:hover,
-#custom-power:hover {
-    background-color: @overlay;
 }
 
 label:focus {

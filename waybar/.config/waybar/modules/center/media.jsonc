@@ -1,0 +1,23 @@
+{
+	// Lo que suena (Firefox, Spotify... cualquier reproductor MPRIS)
+	"mpris": {
+		"format": "{status_icon} {dynamic}",
+		"dynamic-len": 30,
+		"dynamic-order": ["title", "artist"],
+		"status-icons": {
+			"playing": "\uf04b",
+			"paused":  "\uf04c",
+			"stopped": "\uf04d"
+		},
+		"tooltip-format": "{player}: {artist} - {title}",
+		"on-click": "playerctl play-pause",
+		"on-click-right": "playerctl next",
+		"on-scroll-up": "playerctl previous",
+		"on-scroll-down": "playerctl next"
+	},
+
+	"group/media": {
+		"orientation": "horizontal",
+		"modules": ["mpris"]
+	}
+}

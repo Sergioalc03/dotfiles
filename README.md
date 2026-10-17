@@ -24,6 +24,9 @@ Los colores **salen del fondo de pantalla** con [wallust](https://codeberg.org/e
 | `swayosd`  | `~/.config/swayosd`        | Estilo del OSD de volumen/brillo         |
 | `thunar`   | `~/.config/Thunar/uca.xml` | Acciones del clic derecho de Thunar      |
 | `wallust`  | `~/.config/wallust`        | Paleta desde el fondo y sus plantillas   |
+| `systemd`  | `~/.config/systemd/user`   | `hyprland-session.target` (activa la sesión gráfica para los portales) |
+
+`systemd` se enlaza con `stow --no-folding` para que `~/.config/systemd` siga siendo una carpeta real (si no, `systemctl --user enable` escribiría dentro del repo).
 
 `plantillas/` no es un paquete de Stow: `install.sh` **copia** su contenido a `~/Plantillas` (Thunar → clic derecho → *Crear documento*). Se copia para que un documento nuevo nunca pueda editar el archivo del repo.
 
@@ -54,7 +57,7 @@ Al terminar, cierra sesión y vuelve a entrar. El agente polkit, el fondo (awww)
 
 ### Manual
 
-Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar wallust`, y luego `wallust theme Tokyo-Night -s` para crear los archivos de colores (sin ellos Waybar sale sin estilo). Si ya existen archivos en el destino, Stow se negará a sobrescribirlos: muévelos antes, o usa `stow --adopt` y revisa el `git diff`.
+Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash git starship tmux gtk qt swayosd thunar wallust` y `stow -t ~ --no-folding systemd`, y luego `wallust theme Tokyo-Night -s` para crear los archivos de colores (sin ellos Waybar sale sin estilo). Si ya existen archivos en el destino, Stow se negará a sobrescribirlos: muévelos antes, o usa `stow --adopt` y revisa el `git diff`.
 
 ## Atajos principales
 
@@ -82,6 +85,12 @@ Solo los enlaces: `stow -t ~ hyprland waybar swaync wlogout rofi kitty btop bash
 | `SUPER + S` / `SUPER + SHIFT + S` | Scratchpad / mandar ventana al scratchpad |
 
 Las capturas se guardan en `~/Imágenes/Capturas` y se copian al portapapeles. Inactividad (`hypridle.conf`): 2,5 min baja el brillo, 5 min bloquea, 5,5 min apaga la pantalla, 15 min suspende con batería / 30 min enchufado.
+
+Waybar (al estilo Nebulix: barra flotante con bloques, colores del fondo):
+
+- **Izquierda**: lanzador de aplicaciones, accesos directos (Firefox, Thunar, kitty, Obsidian; se cambian en `modules/left/quicklinks.jsonc`) y bandeja.
+- **Centro**: workspaces como puntos y lo que esté sonando (cualquier reproductor MPRIS: clic pausa, clic derecho o rueda cambia de canción).
+- **Derecha**: volumen y micrófono (rueda para subir/bajar, clic derecho silencia), CPU (al pasar el ratón despliega RAM, disco y temperatura; clic abre btop), red, bluetooth, batería, evitar suspensión, reloj, notificaciones y apagado.
 
 Batería (`scripts/battery.sh`): al desenchufar pasa al perfil `power-saver` y al enchufar a `balanced`; avisa al 20 % y al 10 %, y al 5 % suspende tras 60 s. Clic en el icono de perfil de Waybar (despliega al pasar por la batería) para cambiarlo a mano.
 

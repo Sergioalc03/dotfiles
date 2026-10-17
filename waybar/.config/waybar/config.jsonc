@@ -1,45 +1,55 @@
 // -*- mode: jsonc -*-
+// Distribución al estilo Nebulix (Samtroulcode/dotfiles): barra
+// flotante con bloques separados. Cada módulo vive en modules/.
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 32, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 6,
 
-    // INCLUDES
-	"include": [
-		"~/.config/waybar/modules/center/workspaces.jsonc",
-		"~/.config/waybar/modules/center/mpris.jsonc",
-		"~/.config/waybar/modules/center/idle_inhibitor.jsonc",
-		"~/.config/waybar/modules/left/appmenu.jsonc",
-		"~/.config/waybar/modules/left/tray.jsonc",
-		"~/.config/waybar/modules/right/pulseaudio.jsonc",
-		"~/.config/waybar/modules/right/hardware.jsonc",
-		"~/.config/waybar/modules/right/network.jsonc",
-		"~/.config/waybar/modules/right/bluetooth.jsonc",
-		"~/.config/waybar/modules/right/battery.jsonc",
-		"~/.config/waybar/modules/right/clock.jsonc",
-		"~/.config/waybar/modules/right/notifications.jsonc",
-		"~/.config/waybar/modules/right/power.jsonc"
-	],
+    // Separada de los bordes de la pantalla (flotante)
+    "margin-top": 6,
+    "margin-left": 8,
+    "margin-right": 8,
+
+    // Recarga sola al guardar style.css o colores.css
+    "reload_style_on_change": true,
+
+    "include": [
+        "~/.config/waybar/modules/left/appmenu.jsonc",
+        "~/.config/waybar/modules/left/quicklinks.jsonc",
+        "~/.config/waybar/modules/left/tray.jsonc",
+        "~/.config/waybar/modules/center/workspaces.jsonc",
+        "~/.config/waybar/modules/center/media.jsonc",
+        "~/.config/waybar/modules/right/sound.jsonc",
+        "~/.config/waybar/modules/right/hardware.jsonc",
+        "~/.config/waybar/modules/right/network.jsonc",
+        "~/.config/waybar/modules/right/bluetooth.jsonc",
+        "~/.config/waybar/modules/right/battery.jsonc",
+        "~/.config/waybar/modules/right/idle_inhibitor.jsonc",
+        "~/.config/waybar/modules/right/clock.jsonc",
+        "~/.config/waybar/modules/right/notifications.jsonc",
+        "~/.config/waybar/modules/right/power.jsonc"
+    ],
 
     "modules-left": [
         "custom/appmenu",
-	"tray"
+        "group/quicklinks",
+        "tray"
     ],
     "modules-center": [
         "hyprland/workspaces",
-	"idle_inhibitor",
-	"mpris"
+        "group/media"
     ],
     "modules-right": [
-        "pulseaudio",
-	"group/hardware",
+        "group/sound",
+        "group/hardware",
         "network",
         "bluetooth",
         "group/bateria",
+        "idle_inhibitor",
         "clock",
-	"custom/notifications",
-	"custom/power"
+        "custom/notifications",
+        "custom/power"
     ]
 }

@@ -1,0 +1,34 @@
+{
+	"pulseaudio": {
+		"format": "{icon} {volume}%",
+		"format-muted": "\ueee8 ",
+		"format-bluetooth": "󰂯 {volume}%",
+		"format-icons": {
+			"headphone": "\uf025",
+			"headset": "\uf025",
+			"default": ["\uf026", "\uf027", "\uf028"]
+		},
+		"on-click": "pavucontrol",
+		"on-click-right": "swayosd-client --output-volume mute-toggle",
+		"on-scroll-up": "swayosd-client --output-volume +5",
+		"on-scroll-down": "swayosd-client --output-volume -5",
+		"tooltip-format": "Volumen: {desc}"
+	},
+
+	// Micrófono
+	"pulseaudio#mic": {
+		"format": "{format_source}",
+		"format-source": "\uf130 {volume}%",
+		"format-source-muted": "\uf131",
+		"on-click": "pavucontrol --tab=4",
+		"on-click-right": "swayosd-client --input-volume mute-toggle",
+		"on-scroll-up": "swayosd-client --input-volume +5",
+		"on-scroll-down": "swayosd-client --input-volume -5",
+		"tooltip-format": "Micrófono: {source_desc}"
+	},
+
+	"group/sound": {
+		"orientation": "horizontal",
+		"modules": ["pulseaudio", "pulseaudio#mic"]
+	}
+}

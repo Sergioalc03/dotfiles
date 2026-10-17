@@ -1,6 +1,12 @@
 {
 	"hyprland/workspaces": {
+		// Puntos en vez de números (estilo Nebulix)
 		"format": "{icon}",
+		"format-icons": {
+			"active":  "\uf111",
+			"default": "\uf192",
+			"empty":   "\uf10c"
+		},
 		"on-click": "activate",
 		"sort-by-number": true,
 		"persistent-workspaces": {
