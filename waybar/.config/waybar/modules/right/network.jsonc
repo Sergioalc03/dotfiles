@@ -4,6 +4,8 @@
 		"format-ethernet": "",
 		"format-disconnected": "󰖪",
 		"tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+		"tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname}: {ipaddr}/{cidr}",
+		"tooltip-format-disconnected": "Sin conexión (clic para buscar wifi)",
 		"on-click": "~/.config/waybar/scripts/network-menu.sh"
 	}
 }

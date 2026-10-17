@@ -39,6 +39,9 @@ PACKAGES=(
     # Audio, red, energía, hardware (alsa-sof-firmware: sin él los
     # portátiles Intel recientes no tienen tarjeta de sonido)
     pipewire wireplumber alsa-sof-firmware NetworkManager power-profiles-daemon
+    # Wifi: sin NetworkManager-wifi la tarjeta sale «sin gestión»;
+    # nm-connection-editor para eduroam, VPN, IP fija (menú de red de Waybar)
+    NetworkManager-wifi nm-connection-editor
     brightnessctl playerctl blueman udiskie
     # Capturas y portapapeles
     grim slurp swappy wl-clipboard cliphist
