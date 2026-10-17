@@ -24,12 +24,13 @@ COPRS=(
     ashbuk/Hyprland-Fedora   # hyprland 0.56 (config Lua), hyprlock, hypridle, portal
     atim/starship
     erikreider/swayosd
+    scottames/awww           # fondo de pantalla con transiciones (antes swww)
 )
 
 PACKAGES=(
     # Compositor y escritorio
     hyprland hyprlock hypridle xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
-    waybar SwayNotificationCenter wlogout rofi swaybg swayosd mate-polkit
+    waybar SwayNotificationCenter wlogout rofi awww swayosd mate-polkit
     greetd tuigreet dbus-tools glycin-loaders
     # Aplicaciones
     kitty btop Thunar thunar-volman thunar-archive-plugin gvfs pavucontrol

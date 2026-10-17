@@ -17,7 +17,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("/usr/libexec/polkit-mate-authentication-agent-1")
 
     -- 3) Fondo de pantalla: el último elegido con SUPER + W, o el de
-    --    programs.lua. Requiere: swaybg (ver scripts/wallpaper.sh)
+    --    programs.lua, con su paleta de colores (wallust).
+    --    Requiere: awww (ver scripts/wallpaper.sh)
     hl.exec_cmd("~/.config/hypr/scripts/wallpaper.sh restaurar " .. programs.wallpaper)
 
     -- 3b) Tema oscuro para GTK4/libadwaita (scripts/theme.sh)
