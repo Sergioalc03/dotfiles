@@ -10,7 +10,10 @@ hl.on("hyprland.start", function()
     --    que estás en sesión Wayland/Hyprland y los
     --    xdg-desktop-portal fallan.
     --    Requiere: xdg-desktop-portal, xdg-desktop-portal-hyprland
-    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    --    Después activa graphical-session.target (via hyprland-session.target,
+    --    paquete stow «systemd»): sin él xdg-desktop-portal no arranca.
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        .. " && systemctl --user start hyprland-session.target")
 
     -- 2) Agente de autenticación polkit.
     --    Requiere: mate-polkit (polkit-gnome ya no existe en Fedora 44)

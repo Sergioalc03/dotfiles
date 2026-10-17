@@ -34,8 +34,9 @@ PACKAGES=(
     greetd tuigreet dbus-tools glycin-loaders
     # Aplicaciones
     kitty btop Thunar thunar-volman thunar-archive-plugin gvfs pavucontrol
-    # Audio, red, energía, hardware
-    pipewire wireplumber NetworkManager power-profiles-daemon
+    # Audio, red, energía, hardware (alsa-sof-firmware: sin él los
+    # portátiles Intel recientes no tienen tarjeta de sonido)
+    pipewire wireplumber alsa-sof-firmware NetworkManager power-profiles-daemon
     brightnessctl playerctl blueman udiskie
     # Capturas y portapapeles
     grim slurp swappy wl-clipboard cliphist
@@ -209,7 +210,7 @@ command -v stow >/dev/null || error "stow no está instalado (quita --sin-sistem
 # Mueve a $BACKUP los archivos reales que impedirían a Stow crear
 # sus enlaces (p. ej. el .bashrc que trae Fedora).
 respaldados=0
-for pkg in "${STOW_PKGS[@]}"; do
+for pkg in "${STOW_PKGS[@]}" systemd; do
     while IFS= read -r rel; do
         destino="$HOME/$rel"
         fuente="$DOTFILES/$pkg/$rel"
@@ -224,7 +225,11 @@ done
 (( respaldados )) && aviso "$respaldados archivo(s) movidos a $BACKUP"
 
 run stow -d "$DOTFILES" -t "$HOME" -R "${STOW_PKGS[@]}"
-ok "paquetes enlazados: ${STOW_PKGS[*]}"
+# systemd sin plegar: ~/.config/systemd debe ser una carpeta real, o
+# `systemctl --user enable` escribiría sus enlaces dentro del repo.
+run stow -d "$DOTFILES" -t "$HOME" -R --no-folding systemd
+run systemctl --user daemon-reload
+ok "paquetes enlazados: ${STOW_PKGS[*]} systemd"
 
 # Los colores.* que importan Waybar, rofi, kitty... no están en el repo
 # (los genera wallust). Sin ellos Waybar arrancaría sin estilo.

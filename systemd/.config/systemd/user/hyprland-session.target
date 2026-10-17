@@ -1,0 +1,11 @@
+# Sesión gráfica de Hyprland para systemd.
+# Sin esto graphical-session.target nunca se activa y los servicios que
+# lo exigen (xdg-desktop-portal: selector de archivos de Flatpak, tema
+# oscuro, compartir pantalla) fallan con "Dependency failed".
+# Lo arranca autostart.lua; al cerrar Hyprland se para con la sesión.
+[Unit]
+Description=Sesión de Hyprland
+Documentation=man:systemd.special(7)
+BindsTo=graphical-session.target
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target
