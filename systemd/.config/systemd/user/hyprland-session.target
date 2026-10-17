@@ -11,4 +11,7 @@ Wants=graphical-session-pre.target
 # Waybar como servicio (lo trae el paquete waybar): con Restart=on-failure
 # vuelve solo si se cae (Waybar 0.15 se cierra a veces con SIGSEGV)
 Wants=waybar.service
+# swaync igual: si además se lanzara desde autostart, el servicio que
+# activa D-Bus fallaría en bucle con "already running"
+Wants=swaync.service
 After=graphical-session-pre.target

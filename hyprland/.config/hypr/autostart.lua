@@ -36,11 +36,11 @@ hl.on("hyprland.start", function()
 
     -- 4) Resto de la sesión
     hl.exec_cmd(programs.terminal)
-    -- Waybar NO se lanza aquí: es waybar.service (lo arranca
-    -- hyprland-session.target) para que systemd lo reinicie si se cae.
-    -- Reiniciarlo a mano: systemctl --user restart waybar
-    -- Ver sus errores:    journalctl --user -u waybar
-    hl.exec_cmd("swaync")
+    -- Waybar y swaync NO se lanzan aquí: son waybar.service y
+    -- swaync.service (los arranca hyprland-session.target) para que
+    -- systemd los reinicie si se caen y no haya dos swaync a la vez.
+    -- Reiniciarlos a mano: systemctl --user restart waybar swaync
+    -- Ver sus errores:     journalctl --user -u waybar -u swaync
 
     -- 5) Bloqueo por inactividad (config en hypridle.conf)
     hl.exec_cmd("hypridle")
