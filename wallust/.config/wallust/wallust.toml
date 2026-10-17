@@ -27,3 +27,4 @@ swayosd  = { src = 'gtk.css',        dst = '~/.config/swayosd/colores.css' }
 rofi     = { src = 'rofi.rasi',      dst = '~/.config/rofi/colores.rasi' }
 kitty    = { src = 'kitty.conf',     dst = '~/.config/kitty/colores.conf' }
 btop     = { src = 'btop.theme',     dst = '~/.config/btop/themes/wallust.theme' }
+tmux     = { src = 'tmux.conf',      dst = '~/.config/tmux/colores.conf' }

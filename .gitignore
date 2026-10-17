@@ -17,3 +17,4 @@ swayosd/.config/swayosd/colores.css
 rofi/.config/rofi/colores.rasi
 kitty/.config/kitty/colores.conf
 btop/.config/btop/themes/
+tmux/.config/tmux/colores.conf

@@ -117,10 +117,12 @@ Reglas de ventana (`window_rules.lua`): diálogos de abrir/guardar y herramienta
 | `rofi.rasi` | `~/.config/rofi/colores.rasi` | `rofi/tema.rasi` |
 | `kitty.conf` | `~/.config/kitty/colores.conf` | `kitty.conf` |
 | `btop.theme` | `~/.config/btop/themes/wallust.theme` | `btop.conf` |
+| `tmux.conf` | `~/.config/tmux/colores.conf` | `tmux.conf` (barra de estado y bordes) |
 
-Los archivos generados están en `.gitignore`: para cambiar un color se edita la **plantilla**, no el `colores.*`. Hyprland, Waybar, swaync, kitty y swayosd se recargan solos; rofi, wlogout, hyprlock y btop leen la paleta al abrirse.
+Los archivos generados están en `.gitignore`: para cambiar un color se edita la **plantilla**, no el `colores.*`. Hyprland, Waybar, swaync, kitty, tmux y swayosd se recargan solos; rofi, wlogout, hyprlock y btop leen la paleta al abrirse.
 
 - Nombres en CSS/rofi: `@bg`, `@surface`, `@overlay`, `@fg`, `@fg-dim`, `@acento` (= `color4`), `@acento2` (= `color5`), `@c1`…`@c6`. `@red` y `@orange` son fijos para que los avisos (batería crítica, apagar) sigan siendo rojos.
+- **starship** no tiene plantilla: usa los nombres de color de la terminal (`blue`, `purple`, `green`…), que son los de kitty, así que cambia a la vez que ella. El `❯` de error es rojo fijo.
 - Volver a Tokyo Night sin cambiar el fondo: `wallust theme Tokyo-Night -s` (o cualquier otro de `wallust theme list`).
 - Otra paleta para la misma imagen: `palette` en `wallust.toml` (p. ej. `harddark`, `softdark`) o a mano `wallust run -p harddark <imagen>`.
 

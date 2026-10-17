@@ -2,7 +2,9 @@
 # STARSHIP - prompt de la terminal
 # https://starship.rs/config/
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-# Colores en sintonía con kitty (Tokyo Night).
+# Colores: nombres ANSI (blue, purple...) = la paleta de kitty, que
+# genera wallust a partir del fondo; cambian al cambiar de fondo.
+# Solo el error es rojo fijo, para que siempre signifique error.
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
@@ -21,7 +23,7 @@ ssh_only = true
 format = '[$hostname]($style) '
 
 [directory]
-style = 'bold #7aa2f7'
+style = 'bold blue'
 truncation_length = 3
 truncate_to_repo = true
 read_only = ' 󰌾'
@@ -29,22 +31,22 @@ read_only = ' 󰌾'
 [directory.substitutions]
 'Descargas' = '󰉍 '
 'Imágenes' = '󰉏 '
-'dotfiles' = ' '
+'dotfiles' = ' dotfiles'
 
 [git_branch]
 symbol = ' '
-style = 'bold #bb9af7'
+style = 'bold purple'
 
 [git_status]
-style = '#e0af68'
+style = 'yellow'
 
 [cmd_duration]
 min_time = 2000               # mostrar si tarda más de 2 s
 format = '[ $duration]($style) '
-style = '#545c7e'
+style = 'bright-black'
 
 [character]
-success_symbol = '[❯](bold #9ece6a)'
+success_symbol = '[❯](bold green)'
 error_symbol   = '[❯](bold #f7768e)'
 
 [python]
