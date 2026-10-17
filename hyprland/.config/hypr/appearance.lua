@@ -5,10 +5,12 @@
 
 hl.config({
     general = {
-        gaps_in  = 5,
+        -- Valores de Nebulix (Samtroulcode/dotfiles): más aire y bordes
+        -- gruesos para que se luzca el degradado de colores.lua
+        gaps_in  = 10,
         gaps_out = 20,
 
-        border_size = 2,
+        border_size = 4,
 
         col = {
             -- Tokyo Night por si falta colores.lua (ver el final del archivo)
@@ -29,11 +31,14 @@ hl.config({
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
 
+        -- Sombra amplia y difusa (Nebulix). El color lo cambia colores.lua.
         shadow = {
             enabled      = true,
-            range        = 4,
-            render_power = 3,
-            color        = 0xee1a1a1a,
+            range        = 60,
+            render_power = 30,
+            color        = "rgba(181825cc)",
+            scale        = 0.97,
+            offset       = { 1, 2 },
         },
 
         blur = {
@@ -46,6 +51,21 @@ hl.config({
 
     animations = {
         enabled = true,
+    },
+
+    -- Esconder el puntero tras 3 s sin moverlo
+    cursor = {
+        inactive_timeout = 3,
+    },
+
+    -- Pestañas de los grupos de ventanas; colores.lua los cambia
+    group = {
+        groupbar = {
+            col = {
+                active   = { colors = {"rgba(7aa2f7ee)", "rgba(bb9af7ee)"}, angle = 90 },
+                inactive = "rgba(24283bdd)",
+            },
+        },
     },
 })
 

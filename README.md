@@ -93,6 +93,7 @@ Reglas de ventana (`window_rules.lua`): diálogos de abrir/guardar y herramienta
 - **Fondo de pantalla**: `SUPER + W` muestra miniaturas de las imágenes de `~/Imágenes/Fondos` y `/usr/share/backgrounds`. También vale clic derecho en una imagen en Thunar → *Poner como fondo*. La elección se recuerda en `~/.local/state/fondo`. Si la imagen ya no existe, se pinta el color de fondo de Tokyo Night. Cada cambio regenera los colores (ver abajo). El fondo lo pinta **awww** con una transición en barrido (`TRANSICION` al principio de `scripts/wallpaper.sh`; tipos en `awww img --help`); al iniciar sesión aparece sin transición. Los `.jxl` se convierten a PNG en `~/.cache/fondo` porque ni awww ni wallust los leen.
 - **Clic derecho en Thunar**: *Crear carpeta*, *Crear documento* (archivo vacío o una plantilla de `~/Plantillas`), *Abrir terminal aquí* (kitty). Para añadir plantillas, deja cualquier archivo en `~/Plantillas`.
 - Atajos de teclado: `hyprland/.config/hypr/keybindings.lua`.
+- Aspecto de las ventanas (huecos 10/20, borde de 4 px, sombra amplia, desenfoque, puntero que se oculta a los 3 s): `appearance.lua`. Animaciones: `animations.lua`, con dos estilos: `ESTILO = "ja"` (el de Nebulix, deslizando con rebote) o `"suave"` (el original).
 
 ## Colores
 
@@ -100,7 +101,7 @@ Reglas de ventana (`window_rules.lua`): diálogos de abrir/guardar y herramienta
 
 | Plantilla | Archivo generado | Lo usa |
 | --- | --- | --- |
-| `hyprland.lua` | `~/.config/hypr/colores.lua` | `appearance.lua` (bordes) |
+| `hyprland.lua` | `~/.config/hypr/colores.lua` | `appearance.lua` (bordes, sombra, grupos) |
 | `hyprlock.conf` | `~/.config/hypr/hyprlock-colores.conf` | `hyprlock.conf` |
 | `gtk.css` | `~/.config/{waybar,wlogout,swayosd}/colores.css` | sus `style.css` |
 | `swaync.css` | `~/.config/swaync/colores.css` | `swaync/style.css` |
