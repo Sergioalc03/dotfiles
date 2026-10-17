@@ -48,7 +48,7 @@ Opciones: `-y` (no preguntar), `--sin-sistema` (sin sudo: solo fuente, stow y aj
 
 Qué hace:
 
-1. Activa los COPR `ashbuk/Hyprland-Fedora` (Hyprland 0.56 con config Lua, hyprlock, hypridle, portal), `atim/starship`, `erikreider/swayosd` y `scottames/awww`, e instala con dnf los paquetes que falten (lista en `PACKAGES` dentro del script). Cambia `ffmpeg-free` por el **ffmpeg completo** de RPM Fusion (activándolo si falta; sin él mpv no abre vídeos H.264/H.265) e instala los Flatpak de `FLATPAKS` (Spotify).
+1. Activa los COPR `ashbuk/Hyprland-Fedora` (Hyprland 0.56 con config Lua, hyprlock, hypridle, portal), `atim/starship`, `erikreider/swayosd` y `scottames/awww`, e instala con dnf los paquetes que falten (lista en `PACKAGES` dentro del script). Cambia `ffmpeg-free` por el **ffmpeg completo** de RPM Fusion (activándolo si falta; sin él mpv no abre vídeos H.264/H.265) y, con gráfica Intel, `libva-intel-media-driver` por `intel-media-driver` (RPM Fusion nonfree), para decodificar esos vídeos por hardware e instala los Flatpak de `FLATPAKS` (Spotify).
 2. Habilita `bluetooth` y `power-profiles-daemon`.
 3. Instala **JetBrainsMono Nerd Font** en `~/.local/share/fonts`, **wallust** y **yazi** (binarios oficiales) en `~/.local/bin` y **uosc** en `~/.config/mpv`; ninguno está en los repos de Fedora.
 4. Enlaza todos los paquetes con Stow. Los archivos reales que estorben (como el `.bashrc` que trae Fedora) se mueven antes a `~/.dotfiles-respaldo/<fecha>/`. Después genera la paleta inicial (Tokyo Night).

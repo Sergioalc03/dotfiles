@@ -189,7 +189,7 @@ if (( SISTEMA )); then
 
     # ffmpeg de Fedora (ffmpeg-free) no trae H.264/H.265: sin el completo
     # de RPM Fusion mpv no abre la mayoría de vídeos
-    paso "ffmpeg completo (RPM Fusion)"
+    paso "ffmpeg y driver de vídeo completos (RPM Fusion)"
     if ! rpm -q rpmfusion-free-release >/dev/null 2>&1; then
         run sudo dnf install -y "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
     fi
@@ -199,6 +199,20 @@ if (( SISTEMA )); then
         run sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
     else
         run sudo dnf install -y ffmpeg --allowerasing
+    fi
+    # Igual con el driver de vídeo de Intel: el de Fedora no decodifica
+    # H.264/H.265 por hardware (mpv y Firefox tirarían de la CPU)
+    if lspci 2>/dev/null | grep -qi 'vga.*intel'; then
+        if ! rpm -q rpmfusion-nonfree-release >/dev/null 2>&1; then
+            run sudo dnf install -y "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+        fi
+        if rpm -q intel-media-driver >/dev/null 2>&1; then
+            ok "intel-media-driver ya instalado"
+        elif rpm -q libva-intel-media-driver >/dev/null 2>&1; then
+            run sudo dnf swap -y libva-intel-media-driver intel-media-driver --allowerasing
+        else
+            run sudo dnf install -y intel-media-driver
+        fi
     fi
 
     paso "Flatpaks"

@@ -63,7 +63,8 @@ recargar() {
     swaync-client --reload-css >/dev/null 2>&1
     pkill -USR1 -x kitty
     tmux source-file -q ~/.config/tmux/colores.conf 2>/dev/null
-    if pgrep -x qutebrowser >/dev/null; then
+    # qutebrowser corre como «python3 /usr/bin/qutebrowser»
+    if pgrep -f '^[^ ]*python[^ ]* (-[^ ]+ )*[^ ]*bin/qutebrowser( |$)' >/dev/null; then
         qutebrowser ':config-source' >/dev/null 2>&1 &
         disown
     fi
